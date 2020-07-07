@@ -1,19 +1,24 @@
 {
-	"icons": [
-		{
-			"src": "icons8-twitter-48.png",
-			"type": "image/png",
-			"sizes": "48x48"
-		},
-		{
-			"src": "icons8-hashtag-activity-feed-40.png",
-			"type": "image/png",
-			"sizes": "512x512"
-		},
-		{
-			"src": "icons8-hashtag-activity-feed-80.png",
-			"type": "image/png",
-			"sizes": "512x512"
-		}
-	]
+  "icons": [
+    {
+      "src": "icons8-twitter-48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "icons8-hashtag-activity-feed-40.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "icons8-hashtag-activity-feed-80.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "hashtag-512.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    }
+  ]
 }

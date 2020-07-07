@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  paper: {
+    height: "40rem",
+    width: "100%",
+    position: "fixed",
+  },
 }));
 
 const Layout = (props) => {
@@ -53,7 +58,7 @@ const Layout = (props) => {
             </Grid>
             <Hidden smDown>
               <Grid item xs={0} md={3}>
-                <Paper style={{ height: "70%" }}>Right Bar</Paper>
+                <Paper className={classes.paper}>Right Bar</Paper>
               </Grid>
             </Hidden>
           </Grid>

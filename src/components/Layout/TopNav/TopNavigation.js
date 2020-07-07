@@ -7,6 +7,7 @@ import ToolBar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import SettingsIcon from "@material-ui/icons/Settings";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyle = makeStyles((theme) => ({
   grow: {
@@ -60,6 +61,11 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "white",
     color: "black",
     fontSize: "20px",
+    width: "relative",
+    [theme.breakpoints.up("md")]: {
+      width: "38.45rem",
+      marginRight: "24.25rem",
+    },
   },
   accountcircle: {
     backgroundColor: "skyBlue",
@@ -77,9 +83,11 @@ const TopNavigation = (props) => {
     <div className={classes.grow}>
       <AppBar elevation={1} className={classes.appbar}>
         <ToolBar>
-          <div onClick={props.onClick}>
-            <AccountCircle className={classes.accountcircle} />
-          </div>
+          <Hidden mdUp>
+            <div onClick={props.onClick}>
+              <AccountCircle className={classes.accountcircle} />
+            </div>
+          </Hidden>
           <Typography className={classes.typo}>{props.text}</Typography>
           {props.text === "Search" ? (
             <div className={classes.search}>

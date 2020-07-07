@@ -7,7 +7,7 @@ import TweetCard from "./TweetsCard/TweetsCard";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: "4rem",
+    marginTop: "3.4rem",
     marginBottom: "3rem",
   },
 }));
