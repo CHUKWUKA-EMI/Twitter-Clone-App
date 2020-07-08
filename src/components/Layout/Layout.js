@@ -1,11 +1,9 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
 import Paper from "@material-ui/core/Paper";
 import Hidden from "@material-ui/core/Hidden";
 import LabelBottomNavigation from "./BottomNav/BottomNav";
-import TopNavigation from "./TopNav/TopNavigation";
 import HomePage from "../HomePage/HomePage";
 import SideNavigation from "./SideNav/SideNav";
 
@@ -15,7 +13,12 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     height: "40rem",
-    width: "100%",
+    width: "80%",
+    position: "fixed",
+    marginRight: "2rem",
+  },
+  paper1: {
+    height: "100%",
     position: "fixed",
   },
 }));
@@ -29,22 +32,20 @@ const Layout = (props) => {
     setValue(newValue);
   };
 
-  const HandleDrawer = () => {};
-
   return (
     <div ref={wrapper} className={classes.root}>
-      <Grid container justify="center" spacing={4}>
+      <Grid container justify="center" spacing={2}>
         <Grid item xs={12}>
-          <Grid container spacing={4}>
+          <Grid container spacing={2}>
             <Hidden smDown>
-              <Grid item xs={0} md={4}>
-                <SideNavigation />
+              <Grid item md={4}>
+                <Paper className={classes.paper1}>
+                  <SideNavigation />
+                </Paper>
               </Grid>
             </Hidden>
-            <Grid item xs={12} md={5}>
-              <TopNavigation onClick={HandleDrawer} text={value} />
-              <Divider />
-              <HomePage />
+            <Grid item md={5}>
+              <HomePage iconLabel={value} />
               <Hidden mdUp>
                 <LabelBottomNavigation
                   value={value}
@@ -57,7 +58,7 @@ const Layout = (props) => {
               </Hidden>
             </Grid>
             <Hidden smDown>
-              <Grid item xs={0} md={3}>
+              <Grid item md={3}>
                 <Paper className={classes.paper}>Right Bar</Paper>
               </Grid>
             </Hidden>

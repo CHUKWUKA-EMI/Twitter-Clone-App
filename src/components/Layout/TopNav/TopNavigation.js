@@ -61,10 +61,11 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "white",
     color: "black",
     fontSize: "20px",
-    width: "relative",
+    maxWidth: "relative",
+    width: "100%",
+
     [theme.breakpoints.up("md")]: {
-      width: "38.45rem",
-      marginRight: "24.25rem",
+      position: "relative",
     },
   },
   accountcircle: {

@@ -4,13 +4,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Fab";
 import InboxIcon from "@material-ui/icons/Inbox";
 import HomeIcon from "@material-ui/icons/Home";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ProfileIcon from "@material-ui/icons/AccountCircle";
-import { Bookmarks, More, Twitter } from "@material-ui/icons";
+import { Bookmarks, MoreHoriz, Twitter } from "@material-ui/icons";
 import Hashtag from "../../../assets/icons.json";
 import "./sidenav.css";
 
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "relative",
     backgroundColor: theme.palette.background.paper,
     position: "fixed",
-    marginLeft: "2rem",
+    marginLeft: "4rem",
   },
   twitter: {
     color: "rgba(29,161,242,1.00);",
@@ -86,11 +85,11 @@ const SideNavigation = () => {
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
-            <More />
+            <MoreHoriz />
           </ListItemIcon>
           <ListItemText primary="More" />
         </ListItem>
-        <Divider />
+
         <Button
           size="medium"
           variant="extended"
