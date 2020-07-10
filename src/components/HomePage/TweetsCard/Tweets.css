@@ -1,0 +1,7 @@
+.badge:hover {
+  color: red;
+}
+
+.badge:focus {
+  color: red;
+}

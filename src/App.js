@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Auth from "./components/Auth/auth";
 import Layout from "./components/Layout/Layout";
 import "./App.css";
@@ -7,8 +7,9 @@ import "./App.css";
 function App() {
   return (
     <BrowserRouter>
-      {/* <Auth /> */}
-      <Layout />
+      <Route exact path="/" component={Auth} />
+      <Route path="/auth" component={Auth} />
+      <Route path="/layout" component={Layout} />
     </BrowserRouter>
   );
 }

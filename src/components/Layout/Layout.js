@@ -1,4 +1,5 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -45,7 +46,8 @@ const Layout = (props) => {
               </Grid>
             </Hidden>
             <Grid item md={5}>
-              <HomePage iconLabel={value} />
+              <Route exact path="/layout" component={HomePage} />
+              <Route path="/layout/home" component={HomePage} />
               <Hidden mdUp>
                 <LabelBottomNavigation
                   value={value}

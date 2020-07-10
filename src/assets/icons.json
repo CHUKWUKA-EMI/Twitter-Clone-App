@@ -19,6 +19,11 @@
       "src": "hashtag-512.png",
       "type": "image/png",
       "sizes": "48x48"
+    },
+    {
+      "src": "Avatar.jpg",
+      "type": "image/jpg",
+      "sizes": "48x48"
     }
   ]
 }

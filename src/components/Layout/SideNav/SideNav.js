@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,7 +9,7 @@ import Button from "@material-ui/core/Fab";
 import InboxIcon from "@material-ui/icons/Inbox";
 import HomeIcon from "@material-ui/icons/Home";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import ProfileIcon from "@material-ui/icons/AccountCircle";
+import ProfileIcon from "@material-ui/icons/Person";
 import { Bookmarks, MoreHoriz, Twitter } from "@material-ui/icons";
 import Hashtag from "../../../assets/icons.json";
 import "./sidenav.css";
@@ -51,7 +52,9 @@ const SideNavigation = () => {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary="Home" />
+          <NavLink to="/layout/home">
+            <ListItemText primary="Home" />
+          </NavLink>
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
