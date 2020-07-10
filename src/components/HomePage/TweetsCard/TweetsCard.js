@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import {
