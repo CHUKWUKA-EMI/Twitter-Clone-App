@@ -6,11 +6,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Fab";
-import InboxIcon from "@material-ui/icons/Inbox";
-import HomeIcon from "@material-ui/icons/Home";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import ProfileIcon from "@material-ui/icons/Person";
-import { Bookmarks, MoreHoriz, Twitter } from "@material-ui/icons";
+import InboxIcon from "@material-ui/icons/MailOutline";
+import HomeIcon from "@material-ui/icons/HomeOutlined";
+import NotificationsIcon from "@material-ui/icons/NotificationsNone";
+import ProfileIcon from "@material-ui/icons/PersonOutlineOutlined";
+import {
+  BookmarkBorder as Bookmark,
+  MoreHoriz,
+  Twitter,
+} from "@material-ui/icons";
 import Hashtag from "../../../assets/icons.json";
 import "./sidenav.css";
 
@@ -25,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   twitter: {
     color: "rgba(29,161,242,1.00);",
     marginLeft: "1.2rem",
+    height: "2.5rem",
+    width: "2.5rem",
   },
   button: {
     margin: theme.spacing(1),
@@ -33,7 +39,15 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "capitalize",
   },
   btnDiv: {
-    width: "8rem",
+    width: "12rem",
+  },
+  link: {
+    textDecoration: "none",
+    textDecorationColor: "none",
+  },
+  icons: {
+    width: "2.5rem",
+    height: "2.5rem",
   },
 }));
 
@@ -50,51 +64,53 @@ const SideNavigation = () => {
       <List component="nav" aria-label="main navigation folders">
         <ListItem button className="list-item-icons">
           <ListItemIcon>
-            <HomeIcon />
+            <HomeIcon className={classes.icons} />
           </ListItemIcon>
-          <NavLink to="/layout/home">
+          <NavLink to="/layout/home" className={classes.link}>
             <ListItemText primary="Home" />
           </NavLink>
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
-            <HashTag />
+            <HashTag className={classes.icons} />
           </ListItemIcon>
           <ListItemText primary="Expore" />
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
-            <NotificationsIcon />
+            <NotificationsIcon className={classes.icons} />
           </ListItemIcon>
-          <ListItemText primary="Notification" />
+          <NavLink to="/layout/notifications" className={classes.link}>
+            <ListItemText primary="Notification" />
+          </NavLink>
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
-            <InboxIcon />
+            <InboxIcon className={classes.icons} />
           </ListItemIcon>
           <ListItemText primary="Messages" />
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
-            <Bookmarks />
+            <Bookmark className={classes.icons} />
           </ListItemIcon>
           <ListItemText primary="Bookmarks" />
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
-            <ProfileIcon />
+            <ProfileIcon className={classes.icons} />
           </ListItemIcon>
           <ListItemText primary="Profle" />
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
-            <MoreHoriz />
+            <MoreHoriz className={classes.icons} />
           </ListItemIcon>
           <ListItemText primary="More" />
         </ListItem>
 
         <Button
-          size="medium"
+          size="large"
           variant="extended"
           color="primary"
           className={classes.button}

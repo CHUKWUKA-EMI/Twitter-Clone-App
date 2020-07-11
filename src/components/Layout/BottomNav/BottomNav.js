@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -28,6 +29,8 @@ export default function LabelBottomNavigation(props) {
         label="Home"
         value={props.homeVal}
         icon={<HomeIcon />}
+        component={NavLink}
+        to="/layout/home"
       />
       <BottomNavigationAction
         label="Search"
@@ -38,6 +41,8 @@ export default function LabelBottomNavigation(props) {
         label="Notifications"
         value={props.notifyVal}
         icon={<NotificationIcon />}
+        component={NavLink}
+        to="/layout/notifications"
       />
       <BottomNavigationAction
         label="Messages"
