@@ -24,6 +24,31 @@
       "src": "Avatar.jpg",
       "type": "image/jpg",
       "sizes": "48x48"
+    },
+    {
+      "src": "retweet-icon.png",
+      "type": "image/png"
+    },
+    {
+      "src": "tweet-icon.png",
+      "type": "image/png"
+    },
+    {
+      "src": "twiter-home-icon.jpg",
+      "type": "image/jpg"
+    },
+
+    {
+      "src": "twitter-comment-icon.png",
+      "type": "image/png"
+    },
+    {
+      "src": "twitter-verification-icon.png",
+      "type": "image/png"
+    },
+    {
+      "src": "twitter-share-icon.png",
+      "type": "image/png"
     }
   ]
 }

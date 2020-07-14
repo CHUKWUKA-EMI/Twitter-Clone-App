@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Fab from "@material-ui/core/Fab";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Hidden from "@material-ui/core/Hidden";
@@ -10,6 +11,7 @@ import LabelBottomNavigation from "./BottomNav/BottomNav";
 import HomePage from "../HomePage/HomePage";
 import SideNavigation from "./SideNav/SideNav";
 import NotificationsPage from "../Notifications/index";
+import tweet from "../../assets/icons.json";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,6 +67,17 @@ const useStyles = makeStyles((theme) => ({
       width: "20ch",
     },
   },
+  content: {
+    borderLeft: "1px solid gray",
+    borderRight: "1px solid gray",
+    width: "100%",
+    height: "100vh",
+  },
+  tweet: {
+    backgroundColor: "rgba(29,161,242,1.00)",
+    marginLeft: "1rem",
+    color: "white",
+  },
 }));
 
 const Layout = (props) => {
@@ -78,9 +91,9 @@ const Layout = (props) => {
 
   return (
     <div ref={wrapper} className={classes.root}>
-      <Grid container justify="center" spacing={2}>
+      <Grid container justify="center" spacing={1}>
         <Grid item xs={12}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Hidden smDown>
               <Grid item md={4}>
                 <Paper className={classes.paper1}>
@@ -88,13 +101,14 @@ const Layout = (props) => {
                 </Paper>
               </Grid>
             </Hidden>
-            <Grid style={{ border: "1px solid gray" }} item md={5}>
+            <Grid className={classes.content} item md={5}>
               <Route exact path="/layout" component={HomePage} />
               <Route path="/layout/home" component={HomePage} />
               <Route
                 path="/layout/notifications"
                 component={NotificationsPage}
               />
+
               <Hidden mdUp>
                 <LabelBottomNavigation
                   value={value}

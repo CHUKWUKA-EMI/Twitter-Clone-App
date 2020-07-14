@@ -81,7 +81,7 @@ const SideNavigation = () => {
             <NotificationsIcon className={classes.icons} />
           </ListItemIcon>
           <NavLink to="/layout/notifications" className={classes.link}>
-            <ListItemText primary="Notification" />
+            <ListItemText primary="Notifications" />
           </NavLink>
         </ListItem>
         <ListItem button className="list-item-icons">

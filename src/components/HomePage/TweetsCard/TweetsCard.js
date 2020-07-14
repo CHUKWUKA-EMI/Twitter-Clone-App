@@ -8,6 +8,7 @@ import {
   Block,
   Person,
   Report,
+  VerifiedUser,
 } from "@material-ui/icons";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -19,11 +20,11 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { lightBlue } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import CommentIcon from "@material-ui/icons/Comment";
 import Badge from "@material-ui/core/Badge";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import cardImage from "../../../assets/icons.json";
 import "./Tweets.css";
+import "roboto-fontface";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,6 +66,20 @@ const useStyles = makeStyles((theme) => ({
   popover: {
     marginRight: "15rem",
   },
+  cardActions: {
+    justifyContent: "space-evenly",
+    marginLeft: "0rem",
+  },
+  typography: {
+    fontSize: "20px",
+    marginLeft: "1.5rem",
+    marginRight: "1.5rem",
+  },
+  verified: {
+    color: "rgba(29,161,242,1.00)",
+    marginRight: "10rem",
+    marginTop: "1rem",
+  },
 }));
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -103,8 +118,8 @@ export default function TweetCard() {
             </Avatar>
           }
           title="Testing tweets"
-          subheader="09-07-2020"
         />
+        <VerifiedUser className={classes.verified} />
         <IconButton
           className={classes.expand}
           onClick={handleExpandClick}
@@ -161,26 +176,43 @@ export default function TweetCard() {
           </ListItem>
         </List>
       </Popover>
-      <CardMedia
-        className={classes.media}
-        image={cardImage.icons[4].src}
-        title="Image"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+      <CardContent className={classes.typography}>
+        <Typography
+          style={{ fontSize: "20px" }}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the
           mussels, if you like.
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardMedia
+        className={classes.media}
+        image={cardImage.icons[4].src}
+        title="Image"
+      />
+      <CardActions className={classes.cardActions}>
+        <IconButton aria-label="comment on tweet">
+          <StyledBadge>
+            <img src={cardImage.icons[8].src} alt="comment" />
+          </StyledBadge>
+        </IconButton>
+        <IconButton aria-label="retweet">
+          <StyledBadge>
+            <img src={cardImage.icons[5].src} alt="retweet" />
+          </StyledBadge>
+        </IconButton>
         <IconButton aria-label="add to favorites">
           <StyledBadge className="badge" badgeContent={5}>
             <FavoriteIcon />
           </StyledBadge>
         </IconButton>
-        <IconButton aria-label="share">
-          <CommentIcon />
+        <IconButton aria-label="share tweet">
+          <StyledBadge>
+            <img src={cardImage.icons[10].src} alt="share" />
+          </StyledBadge>
         </IconButton>
       </CardActions>
     </Card>
