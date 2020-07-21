@@ -100,7 +100,9 @@ const SideNavigation = () => {
           <ListItemIcon>
             <ProfileIcon className={classes.icons} />
           </ListItemIcon>
-          <ListItemText primary="Profle" />
+          <NavLink to="/layout/profile" className={classes.link}>
+            <ListItemText primary="Profle" />
+          </NavLink>
         </ListItem>
         <ListItem button className="list-item-icons">
           <ListItemIcon>
