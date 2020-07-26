@@ -3,7 +3,6 @@ import { Route } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Hidden from "@material-ui/core/Hidden";
@@ -11,10 +10,12 @@ import LabelBottomNavigation from "./BottomNav/BottomNav";
 import HomePage from "../HomePage/HomePage";
 import SideNavigation from "./SideNav/SideNav";
 import NotificationsPage from "../Notifications/index";
+import ProfilePage from "../Profile/ProfilePage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    overflowX: "hidden",
   },
   paper: {
     height: "40rem",
@@ -107,6 +108,7 @@ const Layout = (props) => {
                 path="/layout/notifications"
                 component={NotificationsPage}
               />
+              <Route path="/layout/profile" component={ProfilePage} />
 
               <Hidden mdUp>
                 <LabelBottomNavigation
