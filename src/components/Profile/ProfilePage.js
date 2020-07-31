@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -124,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfilePage = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [value, setValue] = React.useState(0);
   const [tab, setTab] = React.useState("Tweets");
   const [editProfile, setEditProfile] = React.useState(false);
@@ -163,7 +165,7 @@ const ProfilePage = () => {
         <header className={classes.root}>
           <div className={classes.div1}>
             <div>
-              <Button>
+              <Button onClick={() => history.goBack()}>
                 <KeyboardBackspace className={classes.backArrow} />
               </Button>
             </div>

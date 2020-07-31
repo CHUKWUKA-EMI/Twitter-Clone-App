@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import TweetCard from "./TweetsCard/TweetsCard";
-import TopNavigation from "../Layout/TopNav/TopNavigation";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
   tweet: {
-    marginTop: "2.7rem",
+    marginTop: "3.5rem",
     [theme.breakpoints.up("md")]: {
       marginTop: "0",
     },
@@ -21,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = (props) => {
   const classes = useStyles();
-
-  const HandleDrawer = () => {};
 
   const items = [0, 1, 2, 3, 4, 5];
   return (
@@ -33,9 +30,6 @@ const HomePage = (props) => {
       className={classes.root}
       spacing={2}
     >
-      <Grid item xs={12}>
-        <TopNavigation text={props.iconLabel} onClick={HandleDrawer} />
-      </Grid>
       <Grid className={classes.tweet} item xs={12}>
         {items.map((value) => (
           <Paper key={value}>

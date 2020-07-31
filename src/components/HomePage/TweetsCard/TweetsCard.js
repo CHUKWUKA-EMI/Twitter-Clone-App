@@ -38,14 +38,11 @@ const useStyles = makeStyles((theme) => ({
   },
   expand: {
     transform: "rotate(0deg)",
-    marginLeft: "23rem",
+    marginLeft: "21%",
     marginTop: "0",
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
-    [theme.breakpoints.down("md")]: {
-      marginLeft: "15rem",
-    },
   },
   expandOpen: {
     transform: "rotate(180deg)",
@@ -135,12 +132,12 @@ export default function TweetCard() {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center",
+          horizontal: "right",
         }}
       >
         <List>
