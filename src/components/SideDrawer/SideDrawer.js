@@ -14,9 +14,7 @@ import BookmarksIcon from "@material-ui/icons/BookmarkOutlined";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Lock from "@material-ui/icons/Lock";
 import CloseIcon from "@material-ui/icons/Close";
-import BrightnessIcon from "@material-ui/icons/Brightness4";
 import { IconButton } from "@material-ui/core";
-import Switch from "../Switch/IOSSwitch";
 
 const useStyles = makeStyles({
   root: {

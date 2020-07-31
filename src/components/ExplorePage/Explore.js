@@ -10,8 +10,6 @@ import {
   ListItem,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-import Trends from "./Trends/Trends";
-import SearchBox from "./SearchBox";
 import PopupList from "./ListItem/ListItem";
 
 const useStyles = makeStyles((theme) => ({
