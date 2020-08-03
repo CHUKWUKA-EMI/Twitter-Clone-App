@@ -4,7 +4,7 @@ import { Grid, Paper, IconButton, Divider, Tab, Tabs } from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import TweetsCard from "../../HomePage/TweetsCard/TweetsCard";
-import Follow from "./Follow";
+import Follow1 from "./Follow1";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +72,7 @@ const Search = () => {
   const classes = useStyles();
   const history = useHistory();
   const [value, setValue] = React.useState(0);
-  const [tab, setTab] = React.useState("People");
+  const [tab, setTab] = React.useState("Top");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -119,10 +119,8 @@ const Search = () => {
         <Grid item>
           {tab === "Top" && <TweetsCard />}
           {tab === "Latest" && <TweetsCard />}
-          {tab === "People" &&
-            [1, 2, 3, 4].map((item) => {
-              return <Follow key={item} />;
-            })}
+          {tab === "People" && <Follow1 />}
+
           {tab === "Photos" && <TweetsCard />}
         </Grid>
       </Paper>

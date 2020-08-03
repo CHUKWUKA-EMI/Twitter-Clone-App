@@ -58,8 +58,8 @@ const useStyle = makeStyles((theme) => ({
   },
   setting: {
     color: "rgba(29,161,242,1.00)",
-    height: "2.5rem",
-    width: "2.5rem",
+    height: "2rem",
+    width: "2rem",
   },
   appbar: {
     position: "fixed",

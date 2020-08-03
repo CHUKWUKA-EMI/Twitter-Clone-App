@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     height: "40rem",
-    width: "relative",
+    width: "100%",
     position: "fixed",
-    marginRight: "2rem",
+    marginRight: "7%",
   },
   paper1: {
     height: "100%",

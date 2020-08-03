@@ -35,7 +35,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
   },
   typo: {
-    marginLeft: theme.spacing(8),
+    marginLeft: theme.spacing(6),
+    color: "rgb(101, 119, 134)",
+    fontWeight: 400,
+    fontSize: "15px",
   },
   expand: {
     marginRight: theme.spacing(3),
@@ -73,27 +76,28 @@ const Notifications = () => {
                   </Avatar>
                   <IconButton
                     onClick={handleClickOpen}
+                    className={classes.expand}
                     aria-label="see less often"
                   >
-                    <ExpandMore className={classes.expand} />
+                    <ExpandMore />
                   </IconButton>
                   <Popover
                     open={open}
                     anchorEl={anchorEl}
                     onClose={handleClose}
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "center",
+                      vertical: "top",
+                      horizontal: "right",
                     }}
                     transformOrigin={{
                       vertical: "top",
-                      horizontal: "center",
+                      horizontal: "right",
                     }}
                   >
                     <Typography className={classes.typography}>
                       <ListItem button>
                         <ListItemIcon onClick={handleClose}>
-                          <Emoji color="primary" /> See less often
+                          <Emoji /> See less often
                         </ListItemIcon>
                       </ListItem>
                     </Typography>

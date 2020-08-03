@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles, fade } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
   Paper,
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     trasitionDuration: "0.2s",
     height: "35%",
     position: "relative",
-    backgroundColor: fade(theme.palette.common.black, 0.7),
+    backgroundColor: "rgb(101 119 134)",
     paddingTop: "30%",
     paddingLeft: theme.spacing(2),
     cursor: "pointer",
@@ -43,8 +43,9 @@ const useStyles = makeStyles((theme) => ({
   },
   subtitle2: {
     font: "inherit",
-    color: "Black",
-    fontWeight: "200px",
+    fontSize: "19px",
+    color: "rgb(20, 23, 26);",
+    fontWeight: 800,
   },
   subtitle2Block: {
     display: "flex",
@@ -54,22 +55,27 @@ const useStyles = makeStyles((theme) => ({
   trendHeader: {
     display: "flex",
     font: "inherit",
-    fontSize: "15px",
-    color: "gray",
-    fontWeight: "30px",
+    fontSize: "13px",
+    color: "rgb(101, 119, 134)",
+    fontWeight: 500,
     justifyContent: "space-between",
     flexDirection: "row",
   },
 
   user: {
     font: "inherit",
-    fontWeight: "semiBold",
+    fontWeight: "bold",
+    color: "rgb(20, 23, 26)",
+    fontSize: "15px",
+    paddingTop: "2px",
   },
   tweetCount: {
     font: "inherit",
-    fontSize: "15px",
-    color: "gray",
-    fontWeight: "30px",
+    fontSize: "13px",
+    marginTop: "5px",
+    color: "rgb(101, 119, 134)",
+    lineHeight: "calc(19.6875px)",
+    fontWeight: 500,
   },
   container: {
     padding: theme.spacing(1),
@@ -130,7 +136,7 @@ const Explore = () => {
                 <Grid item className={classes.container}>
                   {" "}
                   <div
-                    onClick={() => history.push("/layout/search")}
+                    onDoubleClick={() => history.push("/layout/search")}
                     className={classes.trendBody}
                   >
                     <div className={classes.trendHeader}>

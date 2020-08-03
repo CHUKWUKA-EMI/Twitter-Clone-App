@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -15,7 +16,6 @@ import {
   MoreHoriz,
   Twitter,
 } from "@material-ui/icons";
-import Hashtag from "../../../assets/icons.json";
 import "./sidenav.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "relative",
     backgroundColor: theme.palette.background.paper,
     position: "fixed",
-    marginLeft: "4rem",
+    marginLeft: "10%",
   },
   twitter: {
     color: "rgba(29,161,242,1.00);",
@@ -39,6 +39,15 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "capitalize",
     "&:hover": {
       backgroundColor: "rgba(29,161,242,1.00)",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "0px",
+    },
+
+    "& .MuiFab-extended": {
+      [theme.breakpoints.down("md")]: {
+        width: "0px",
+      },
     },
   },
   btnDiv: {
@@ -55,6 +64,12 @@ const useStyles = makeStyles((theme) => ({
           color: "rgba(29,161,242,1.00)",
         },
       },
+      "& .MuiTypography-root": {
+        color: "rgba(29,161,242,1.00)",
+        "&:focus": {
+          color: "rgba(29,161,242,1.00)",
+        },
+      },
     },
   },
   link: {
@@ -67,11 +82,14 @@ const useStyles = makeStyles((theme) => ({
     "&:focus": {
       color: "rgba(29,161,242,1.00)",
     },
-    "&:visited": {
-      color: "rgba(29,161,242,1.00)",
-    },
+
     "& .MuiTypography-root": {
-      fontWeight: 900,
+      fontWeight: "bold",
+      fontSize: "19px",
+      color: "rgb(20, 23, 26);",
+      "&:focus": {
+        color: "rgba(29,161,242,1.00)",
+      },
     },
   },
 
@@ -79,10 +97,26 @@ const useStyles = makeStyles((theme) => ({
     width: "2.5rem",
     height: "2.5rem",
   },
+  svg: {
+    display: "flex",
+    flexBasis: "auto",
+    flexDirection: "column",
+    flexShrink: 0,
+    height: "1.75rem",
+    position: "relative",
+  },
 }));
 
 const HashTag = () => {
-  return <img src={Hashtag.icons[3].src} alt="hashtag" />;
+  const classes = useStyles();
+
+  return (
+    <svg viewBox="0 0 24 24" className={classes.svg}>
+      <g>
+        <path d="M20.585 9.468c.66 0 1.2-.538 1.2-1.2 0-.662-.54-1.2-1.2-1.2h-3.22l.31-3.547c.027-.318-.07-.63-.277-.875-.206-.245-.495-.396-.822-.425-.65-.035-1.235.432-1.293 1.093l-.326 3.754H9.9l.308-3.545c.06-.658-.43-1.242-1.097-1.302-.665-.05-1.235.43-1.293 1.092l-.325 3.754h-3.33c-.663 0-1.2.538-1.2 1.2 0 .662.538 1.2 1.2 1.2h3.122l-.44 5.064H3.416c-.662 0-1.2.54-1.2 1.2s.538 1.202 1.2 1.202h3.22l-.31 3.548c-.057.657.432 1.24 1.09 1.3l.106.005c.626 0 1.14-.472 1.195-1.098l.327-3.753H14.1l-.308 3.544c-.06.658.43 1.242 1.09 1.302l.106.005c.617 0 1.142-.482 1.195-1.098l.325-3.753h3.33c.66 0 1.2-.54 1.2-1.2s-.54-1.202-1.2-1.202h-3.122l.44-5.064h3.43zm-5.838 0l-.44 5.063H9.253l.44-5.062h5.055z"></path>
+      </g>
+    </svg>
+  );
 };
 
 const SideNavigation = (props) => {
@@ -101,7 +135,9 @@ const SideNavigation = (props) => {
             to="/layout/home"
             className={classes.link}
           >
-            <ListItemText primary="Home" />
+            <Hidden mdDown>
+              <ListItemText primary="Home" />
+            </Hidden>
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
@@ -109,7 +145,9 @@ const SideNavigation = (props) => {
             <HashTag className={classes.icons} />
           </ListItemIcon>
           <NavLink to="/layout/explore" className={classes.link}>
-            <ListItemText primary="Expore" />
+            <Hidden mdDown>
+              <ListItemText primary="Expore" />
+            </Hidden>
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
@@ -121,20 +159,30 @@ const SideNavigation = (props) => {
             to="/layout/notifications"
             className={classes.link}
           >
-            <ListItemText primary="Notifications" />
+            <Hidden mdDown>
+              <ListItemText primary="Notifications" />
+            </Hidden>
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
           <ListItemIcon>
             <InboxIcon className={classes.icons} />
           </ListItemIcon>
-          <ListItemText primary="Messages" />
+          <NavLink to="/layout/messages" className={classes.link}>
+            <Hidden mdDown>
+              <ListItemText primary="Messages" />
+            </Hidden>
+          </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
           <ListItemIcon>
             <Bookmark className={classes.icons} />
           </ListItemIcon>
-          <ListItemText primary="Bookmarks" />
+          <NavLink to="/layout/bookmarks" className={classes.link}>
+            <Hidden mdDown>
+              <ListItemText primary="Bookmarks" />
+            </Hidden>
+          </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
           <ListItemIcon>
@@ -145,14 +193,20 @@ const SideNavigation = (props) => {
             to="/layout/profile"
             className={classes.link}
           >
-            <ListItemText primary="Profle" />
+            <Hidden mdDown>
+              <ListItemText primary="Profle" />
+            </Hidden>
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
           <ListItemIcon>
             <MoreHoriz className={classes.icons} />
           </ListItemIcon>
-          <ListItemText primary="More" />
+          <NavLink to="/layout/more" className={classes.link}>
+            <Hidden mdDown>
+              <ListItemText primary="More" />
+            </Hidden>
+          </NavLink>
         </ListItem>
 
         <Button

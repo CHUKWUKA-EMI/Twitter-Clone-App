@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Auth from "./components/Auth/auth";
 import Layout from "./components/Layout/Layout";
-import "roboto-fontface";
 
 function App() {
   return (
