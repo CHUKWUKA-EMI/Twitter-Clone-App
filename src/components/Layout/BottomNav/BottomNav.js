@@ -40,6 +40,8 @@ export default function LabelBottomNavigation(props) {
         label="Search"
         value={props.searchVal}
         icon={<SearchIcon className={classes.icons} />}
+        component={NavLink}
+        to="/layout/explore"
       />
       <BottomNavigationAction
         label="Notifications"

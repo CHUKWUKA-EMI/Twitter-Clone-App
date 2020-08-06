@@ -6,11 +6,16 @@ import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Hidden from "@material-ui/core/Hidden";
+import { Divider } from "@material-ui/core";
 import LabelBottomNavigation from "./BottomNav/BottomNav";
 import HomePage from "../HomePage/HomePage";
 import SideNavigation from "./SideNav/SideNav";
 import NotificationsPage from "../Notifications/index";
 import ProfilePage from "../Profile/ProfilePage";
+import ExplorePage from "../ExplorePage/Explore";
+import TopNavigation from "./TopNav/TopNavigation";
+import SearchDetails from "../ExplorePage/SearchDetails/Search";
+import SideDrawer from "../SideDrawer/SideDrawer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     height: "40rem",
     width: "relative",
     position: "fixed",
-    marginRight: "2rem",
+    marginRight: "7%",
   },
   paper1: {
     height: "100%",
@@ -68,8 +73,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   content: {
-    borderLeft: "1px solid gray",
-    borderRight: "1px solid gray",
     width: "100%",
     height: "100vh",
   },
@@ -78,30 +81,59 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "1rem",
     color: "white",
   },
+  topnav: {
+    display: "flex",
+    flexDirection: "row",
+    position: "relative",
+    width: "100%",
+    marginLeft: "1%",
+    zIndex: 1,
+  },
 }));
 
 const Layout = (props) => {
   const classes = useStyles();
   const wrapper = React.createRef();
   const [value, setValue] = React.useState("");
+  const [state, setState] = React.useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const openDrawer = () => {
+    setState(true);
+  };
 
   return (
     <div ref={wrapper} className={classes.root}>
+      <Hidden mdUp>
+        <SideDrawer
+          iconClick={() => setState(false)}
+          onClick={() => setState(false)}
+          onKeyDown={() => setState(false)}
+          open={state}
+          onClose={() => setState(false)}
+        />
+      </Hidden>
       <Grid container justify="center" spacing={1}>
         <Grid item xs={12}>
           <Grid container spacing={1}>
             <Hidden smDown>
               <Grid item md={4}>
                 <Paper className={classes.paper1}>
-                  <SideNavigation />
+                  <SideNavigation
+                    onClickHome={() => setValue("Home")}
+                    onClickNotify={() => setValue("Notifications")}
+                    onClickProfile={() => setValue("Profile")}
+                  />
                 </Paper>
               </Grid>
             </Hidden>
+            <Divider />
             <Grid className={classes.content} item md={5}>
+              <header className={classes.topnav}>
+                <TopNavigation onClick={openDrawer} text={value} />
+              </header>
               <Route exact path="/layout" component={HomePage} />
               <Route path="/layout/home" component={HomePage} />
               <Route
@@ -109,7 +141,8 @@ const Layout = (props) => {
                 component={NotificationsPage}
               />
               <Route path="/layout/profile" component={ProfilePage} />
-
+              <Route path="/layout/explore" component={ExplorePage} />
+              <Route path="/layout/search" component={SearchDetails} />
               <Hidden mdUp>
                 <LabelBottomNavigation
                   value={value}
@@ -121,6 +154,7 @@ const Layout = (props) => {
                 />
               </Hidden>
             </Grid>
+            <Divider />
             <Hidden smDown>
               <Grid item md={3}>
                 <Paper className={classes.paper}>

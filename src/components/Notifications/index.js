@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     position: "static",
     background: "white",
     color: "gray",
+    marginLeft: "1%",
   },
   tab: {
     fontWeight: 800,

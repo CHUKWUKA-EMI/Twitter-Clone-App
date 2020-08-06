@@ -19,12 +19,15 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { lightBlue } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import Badge from "@material-ui/core/Badge";
+import {
+  ChatBubbleOutlineOutlined,
+  FavoriteBorderOutlined,
+  ShareOutlined,
+} from "@material-ui/icons";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import cardImage from "../../../assets/icons.json";
 import "./Tweets.css";
-import "roboto-fontface";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,14 +41,13 @@ const useStyles = makeStyles((theme) => ({
   },
   expand: {
     transform: "rotate(0deg)",
-    marginLeft: "23rem",
+    height: "3.5rem",
+    width: "3.5rem",
+    marginLeft: "21%",
     marginTop: "0",
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
-    [theme.breakpoints.down("md")]: {
-      marginLeft: "15rem",
-    },
   },
   expandOpen: {
     transform: "rotate(180deg)",
@@ -91,6 +93,9 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 
+const RetweetIcon = () => {
+  return <i className="fa fa-retweet" style={{ fontSize: "24px" }}></i>;
+};
 export default function TweetCard() {
   const classes = useStyles();
   const wrapper = React.createRef();
@@ -135,12 +140,12 @@ export default function TweetCard() {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center",
+          horizontal: "right",
         }}
       >
         <List>
@@ -195,23 +200,23 @@ export default function TweetCard() {
       />
       <CardActions className={classes.cardActions}>
         <IconButton aria-label="comment on tweet">
-          <StyledBadge>
-            <img src={cardImage.icons[8].src} alt="comment" />
+          <StyledBadge className="chat">
+            <ChatBubbleOutlineOutlined />
           </StyledBadge>
         </IconButton>
         <IconButton aria-label="retweet">
-          <StyledBadge>
-            <img src={cardImage.icons[5].src} alt="retweet" />
+          <StyledBadge className="retweet">
+            <RetweetIcon />
           </StyledBadge>
         </IconButton>
         <IconButton aria-label="add to favorites">
-          <StyledBadge className="badge" badgeContent={5}>
-            <FavoriteIcon />
+          <StyledBadge className="favourite" badgeContent={5}>
+            <FavoriteBorderOutlined />
           </StyledBadge>
         </IconButton>
         <IconButton aria-label="share tweet">
-          <StyledBadge>
-            <img src={cardImage.icons[10].src} alt="share" />
+          <StyledBadge className="share">
+            <ShareOutlined />
           </StyledBadge>
         </IconButton>
       </CardActions>

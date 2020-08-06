@@ -35,14 +35,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
   },
   typo: {
-    marginLeft: theme.spacing(8),
+    marginLeft: theme.spacing(6),
+    color: "rgb(101, 119, 134)",
+    fontWeight: 400,
+    fontSize: "15px",
   },
   expand: {
     marginRight: theme.spacing(3),
   },
   item: {
     width: "100%",
-    marginTop: "1rem",
+    marginTop: "0.5%",
+    marginLeft: "1%",
   },
 }));
 const Notifications = () => {
@@ -66,34 +70,35 @@ const Notifications = () => {
         {items.map((item) => {
           return (
             <Grid item key={item} xs={12}>
-              <Paper>
+              <Paper elevation={1} square>
                 <div className={classes.paper}>
                   <Avatar className={classes.avatar}>
                     <Twitter />
                   </Avatar>
                   <IconButton
                     onClick={handleClickOpen}
+                    className={classes.expand}
                     aria-label="see less often"
                   >
-                    <ExpandMore className={classes.expand} />
+                    <ExpandMore />
                   </IconButton>
                   <Popover
                     open={open}
                     anchorEl={anchorEl}
                     onClose={handleClose}
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "center",
+                      vertical: "top",
+                      horizontal: "right",
                     }}
                     transformOrigin={{
                       vertical: "top",
-                      horizontal: "center",
+                      horizontal: "right",
                     }}
                   >
                     <Typography className={classes.typography}>
                       <ListItem button>
                         <ListItemIcon onClick={handleClose}>
-                          <Emoji color="primary" /> See less often
+                          <Emoji /> See less often
                         </ListItemIcon>
                       </ListItem>
                     </Typography>
