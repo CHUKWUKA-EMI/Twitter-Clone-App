@@ -13,7 +13,6 @@ import { Close, Mood, Photo } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-import "roboto-fontface";
 
 const useStyles = makeStyles((theme) => ({
   root: {

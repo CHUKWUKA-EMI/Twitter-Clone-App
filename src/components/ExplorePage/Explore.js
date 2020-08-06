@@ -15,6 +15,7 @@ import PopupList from "./ListItem/ListItem";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginLeft: "1%",
   },
   paper: {
     flexGrow: 1,
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     fontWeight: "500px",
     height: "15%",
+    paddingBottom: "1rem",
   },
   subtitle2: {
     font: "inherit",

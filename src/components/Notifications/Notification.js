@@ -45,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     width: "100%",
-    marginTop: "1rem",
+    marginTop: "0.5%",
+    marginLeft: "1%",
   },
 }));
 const Notifications = () => {
@@ -69,7 +70,7 @@ const Notifications = () => {
         {items.map((item) => {
           return (
             <Grid item key={item} xs={12}>
-              <Paper>
+              <Paper elevation={1} square>
                 <div className={classes.paper}>
                   <Avatar className={classes.avatar}>
                     <Twitter />

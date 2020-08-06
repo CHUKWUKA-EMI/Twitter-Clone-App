@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    position: "fixed",
+    position: "sticky",
     top: "0rem",
     marginBottom: "0rem",
     background: "white",
@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgb(204, 214, 221)",
     height: "12rem",
     top: "0rem",
+    marginTop: "0rem",
   },
   horizontalDiv: {
     display: "flex",
@@ -156,12 +157,6 @@ const ProfilePage = () => {
   return (
     <Grid container justify="center" spacing={1}>
       <Grid item xs={12}>
-        <EditProfile
-          open={editProfile}
-          onClose={() => setEditProfile(false)}
-          closeModal={() => setEditProfile(false)}
-        />
-
         <header className={classes.root}>
           <div className={classes.div1}>
             <div>
@@ -179,7 +174,7 @@ const ProfilePage = () => {
         </header>
       </Grid>
 
-      <main style={{ width: "100%", marginTop: "1rem" }}>
+      <main style={{ width: "100%", marginTop: "0px" }}>
         <Grid item xs={12}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
@@ -300,6 +295,11 @@ const ProfilePage = () => {
             )}
           </Grid>
         </Grid>
+        <EditProfile
+          open={editProfile}
+          onClose={() => setEditProfile(false)}
+          closeModal={() => setEditProfile(false)}
+        />
       </main>
     </Grid>
   );

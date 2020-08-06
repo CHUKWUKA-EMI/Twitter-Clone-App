@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
@@ -20,11 +20,13 @@ import "./sidenav.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "relative",
-    maxWidth: "relative",
+    width: "255px",
+    // maxWidth: "relative",
     backgroundColor: theme.palette.background.paper,
     position: "fixed",
     marginLeft: "10%",
+    alignItems: "left",
+    WebkitBoxPack: "justify",
   },
   twitter: {
     color: "rgba(29,161,242,1.00);",
@@ -55,39 +57,35 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem: {
     borderRadius: "2rem",
-    "&:hover": {
+    "&:hover, &:active, &.active": {
       backgroundColor: "rgb(206,233,234)",
       color: "rgba(29,161,242,1.00)",
-      "& .MuiListItemIcon-root": {
+      "& .MuiSvgIcon-root": {
         color: "rgba(29,161,242,1.00)",
-        "&.active": {
-          color: "rgba(29,161,242,1.00)",
-        },
       },
       "& .MuiTypography-root": {
         color: "rgba(29,161,242,1.00)",
-        "&:focus": {
-          color: "rgba(29,161,242,1.00)",
-        },
       },
     },
   },
   link: {
-    fontWeight: "600px",
     textDecoration: "none",
     textDecorationColor: "none",
-    "&:hover": {
-      color: "rgba(29,161,242,1.00)",
-    },
-    "&:focus": {
-      color: "rgba(29,161,242,1.00)",
-    },
-
     "& .MuiTypography-root": {
       fontWeight: "bold",
       fontSize: "19px",
-      color: "rgb(20, 23, 26);",
-      "&:focus": {
+      color: "black",
+    },
+    "&:hover, &:active, &.active": {
+      "& .MuiTypography-root": {
+        fontWeight: "bold",
+        fontSize: "19px",
+        color: "rgba(29,161,242,1.00)",
+        "&:focus, &.active": {
+          color: "rgba(29,161,242,1.00)",
+        },
+      },
+      "& .MuiSvgIcon-root": {
         color: "rgba(29,161,242,1.00)",
       },
     },
@@ -95,13 +93,20 @@ const useStyles = makeStyles((theme) => ({
 
   icons: {
     width: "2.5rem",
-    height: "2.5rem",
+    height: "1.75rem",
+    color: "rgb(20, 23, 26);",
+    "&:hover, &:active, &.active": {
+      color: "rgba(29,161,242,1.00)",
+    },
   },
+
   svg: {
     display: "flex",
     flexBasis: "auto",
     flexDirection: "column",
     flexShrink: 0,
+    width: "2.5rem",
+    marginLeft: "0.1rem",
     height: "1.75rem",
     position: "relative",
   },
@@ -121,13 +126,14 @@ const HashTag = () => {
 
 const SideNavigation = (props) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
       <Twitter className={classes.twitter} />
       <List component="nav" aria-label="main navigation folders">
         <ListItem button className={classes.listItem}>
-          <ListItemIcon>
+          <ListItemIcon onClick={() => history.push("/layout/home")}>
             <HomeIcon className={classes.icons} />
           </ListItemIcon>
           <NavLink
@@ -141,7 +147,7 @@ const SideNavigation = (props) => {
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
-          <ListItemIcon>
+          <ListItemIcon onClick={() => history.push("/layout/explore")}>
             <HashTag className={classes.icons} />
           </ListItemIcon>
           <NavLink to="/layout/explore" className={classes.link}>
@@ -151,7 +157,7 @@ const SideNavigation = (props) => {
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
-          <ListItemIcon>
+          <ListItemIcon onClick={() => history.push("/layout/notifications")}>
             <NotificationsIcon className={classes.icons} />
           </ListItemIcon>
           <NavLink
@@ -165,7 +171,7 @@ const SideNavigation = (props) => {
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
-          <ListItemIcon>
+          <ListItemIcon onClick={() => history.push("/layout/messages")}>
             <InboxIcon className={classes.icons} />
           </ListItemIcon>
           <NavLink to="/layout/messages" className={classes.link}>
@@ -175,7 +181,7 @@ const SideNavigation = (props) => {
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
-          <ListItemIcon>
+          <ListItemIcon onClick={() => history.push("/layout/bookmarks")}>
             <Bookmark className={classes.icons} />
           </ListItemIcon>
           <NavLink to="/layout/bookmarks" className={classes.link}>
@@ -185,7 +191,7 @@ const SideNavigation = (props) => {
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
-          <ListItemIcon>
+          <ListItemIcon onClick={() => history.push("/layout/profile")}>
             <ProfileIcon className={classes.icons} />
           </ListItemIcon>
           <NavLink
@@ -199,7 +205,7 @@ const SideNavigation = (props) => {
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
-          <ListItemIcon>
+          <ListItemIcon onClick={() => history.push("/layout/more")}>
             <MoreHoriz className={classes.icons} />
           </ListItemIcon>
           <NavLink to="/layout/more" className={classes.link}>

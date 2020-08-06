@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     position: "relative",
     width: "100%",
+    marginLeft: "1%",
     zIndex: 1,
   },
 }));

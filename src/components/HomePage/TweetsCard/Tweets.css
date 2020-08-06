@@ -1,7 +1,19 @@
-.badge:hover {
+.favourite:hover {
   color: red;
 }
 
-.badge:focus {
+.favourite:focus {
   color: red;
+}
+
+.chat:hover {
+  color: rgba(29, 161, 242, 1);
+}
+
+.retweet:hover {
+  color: green;
+}
+
+.share:hover {
+  color: rgba(29, 161, 242, 1);
 }
