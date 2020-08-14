@@ -8,7 +8,6 @@ import {
   Block,
   Person,
   Report,
-  VerifiedUser,
 } from "@material-ui/icons";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -18,7 +17,6 @@ import Popover from "@material-ui/core/Popover";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { lightBlue } from "@material-ui/core/colors";
 import Badge from "@material-ui/core/Badge";
 import {
   ChatBubbleOutlineOutlined,
@@ -48,21 +46,36 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
+    [theme.breakpoints.down("xs")]: {
+      marginRight: "25%",
+    },
   },
   expandOpen: {
     transform: "rotate(180deg)",
   },
   avatar: {
-    backgroundColor: lightBlue[500],
+    width: "2.5rem",
+    height: "2.5rem",
   },
   cardheader: {
+    flexShrink: 1,
     display: "flex",
-    width: "100%",
     flexDirection: "row",
-
+    justifyContent: "space-around",
+    marginLeft: "7%",
+    marginRight: "9%",
     [theme.breakpoints.only("sm")]: {
-      width: "90%",
       justifyContent: "space-between",
+    },
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "space-around",
+      marginLeft: "10%",
+      marginRight: "15%",
+      paddingRight: "1.5rem",
+      paddingLeft: "1.5rem",
+      "& .MuiCardHeader-avatar": {
+        marginLeft: "70%",
+      },
     },
   },
   popover: {
@@ -78,11 +91,39 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1.5rem",
   },
   verified: {
-    color: "rgba(29,161,242,1.00)",
     marginRight: "10rem",
     marginTop: "1rem",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: "14%",
+    },
+  },
+  svg: {
+    height: "1.5em",
+    verticalAlign: "text-bottom",
+    display: "inline",
+    overflow: "hidden",
+    lineHeight: 1,
+    fontWeight: "bold",
+    fontSize: "15px",
+  },
+  path: {
+    fill: "rgba(29,161,242,1.00)",
+  },
+  svg2: {
+    height: "1.5em",
+    width: "1.5em",
+    verticalAlign: "text-bottom",
+    display: "inline",
+    overflow: "hidden",
+    lineHeight: 1,
+    fontWeight: 400,
+    fontSize: "15px",
+  },
+  path2: {
+    fill: "rgb(101, 119, 134);",
   },
 }));
+
 const StyledBadge = withStyles((theme) => ({
   badge: {
     right: -7,
@@ -94,8 +135,32 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const RetweetIcon = () => {
-  return <i className="fa fa-retweet" style={{ fontSize: "24px" }}></i>;
+  const classes = useStyles();
+  return (
+    <svg className={classes.svg2}>
+      <g>
+        <path
+          className={classes.path2}
+          d="M 23.77 15.67 c -0.292 -0.293 -0.767 -0.293 -1.06 0 l -2.22 2.22 V 7.65 c 0 -2.068 -1.683 -3.75 -3.75 -3.75 h -5.85 c -0.414 0 -0.75 0.336 -0.75 0.75 s 0.336 0.75 0.75 0.75 h 5.85 c 1.24 0 2.25 1.01 2.25 2.25 v 10.24 l -2.22 -2.22 c -0.293 -0.293 -0.768 -0.293 -1.06 0 s -0.294 0.768 0 1.06 l 3.5 3.5 c 0.145 0.147 0.337 0.22 0.53 0.22 s 0.383 -0.072 0.53 -0.22 l 3.5 -3.5 c 0.294 -0.292 0.294 -0.767 0 -1.06 Z m -10.66 3.28 H 7.26 c -1.24 0 -2.25 -1.01 -2.25 -2.25 V 6.46 l 2.22 2.22 c 0.148 0.147 0.34 0.22 0.532 0.22 s 0.384 -0.073 0.53 -0.22 c 0.293 -0.293 0.293 -0.768 0 -1.06 l -3.5 -3.5 c -0.293 -0.294 -0.768 -0.294 -1.06 0 l -3.5 3.5 c -0.294 0.292 -0.294 0.767 0 1.06 s 0.767 0.293 1.06 0 l 2.22 -2.22 V 16.7 c 0 2.068 1.683 3.75 3.75 3.75 h 5.85 c 0.414 0 0.75 -0.336 0.75 -0.75 s -0.337 -0.75 -0.75 -0.75 Z"
+        ></path>
+      </g>
+    </svg>
+  );
 };
+const VerifiedIcon = () => {
+  const classes = useStyles();
+  return (
+    <svg viewBox="0 0 24 24" className={classes.svg}>
+      <g>
+        <path
+          className={classes.path}
+          d="M 22.5 12.5 c 0 -1.58 -0.875 -2.95 -2.148 -3.6 c 0.154 -0.435 0.238 -0.905 0.238 -1.4 c 0 -2.21 -1.71 -3.998 -3.818 -3.998 c -0.47 0 -0.92 0.084 -1.336 0.25 C 14.818 2.415 13.51 1.5 12 1.5 s -2.816 0.917 -3.437 2.25 c -0.415 -0.165 -0.866 -0.25 -1.336 -0.25 c -2.11 0 -3.818 1.79 -3.818 4 c 0 0.494 0.083 0.964 0.237 1.4 c -1.272 0.65 -2.147 2.018 -2.147 3.6 c 0 1.495 0.782 2.798 1.942 3.486 c -0.02 0.17 -0.032 0.34 -0.032 0.514 c 0 2.21 1.708 4 3.818 4 c 0.47 0 0.92 -0.086 1.335 -0.25 c 0.62 1.334 1.926 2.25 3.437 2.25 c 1.512 0 2.818 -0.916 3.437 -2.25 c 0.415 0.163 0.865 0.248 1.336 0.248 c 2.11 0 3.818 -1.79 3.818 -4 c 0 -0.174 -0.012 -0.344 -0.033 -0.513 c 1.158 -0.687 1.943 -1.99 1.943 -3.484 Z m -6.616 -3.334 l -4.334 6.5 c -0.145 0.217 -0.382 0.334 -0.625 0.334 c -0.143 0 -0.288 -0.04 -0.416 -0.126 l -0.115 -0.094 l -2.415 -2.415 c -0.293 -0.293 -0.293 -0.768 0 -1.06 s 0.768 -0.294 1.06 0 l 1.77 1.767 l 3.825 -5.74 c 0.23 -0.345 0.696 -0.436 1.04 -0.207 c 0.346 0.23 0.44 0.696 0.21 1.04 Z"
+        ></path>
+      </g>
+    </svg>
+  );
+};
+
 export default function TweetCard() {
   const classes = useStyles();
   const wrapper = React.createRef();
@@ -118,13 +183,13 @@ export default function TweetCard() {
       <div className={classes.cardheader}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              CE
-            </Avatar>
+            <Avatar aria-label="recipe" className={classes.avatar}></Avatar>
           }
           title="Testing tweets"
         />
-        <VerifiedUser className={classes.verified} />
+        <div className={classes.verified}>
+          <VerifiedIcon />
+        </div>
         <IconButton
           className={classes.expand}
           onClick={handleExpandClick}

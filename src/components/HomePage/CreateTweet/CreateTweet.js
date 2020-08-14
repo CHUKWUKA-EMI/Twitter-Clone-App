@@ -119,6 +119,11 @@ const useStyles = makeStyles((theme) => ({
     height: "2rem",
     width: "2rem",
   },
+  iconsdiv: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
 }));
 
 const ModalContent = (props) => {
@@ -149,7 +154,7 @@ const ModalContent = (props) => {
             </div>
 
             <div className={classes.bottomDiv}>
-              <div>
+              <div className={classes.iconsdiv}>
                 <input
                   accept="image/*"
                   className={classes.input}

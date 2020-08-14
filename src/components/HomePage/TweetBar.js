@@ -94,6 +94,8 @@ const TweetBar = (props) => {
             <div>
               <div style={{ height: "max-content", marginTop: 0 }}>
                 <textarea
+                  value={message}
+                  onChange={(e) => SetMessage(e.target.value)}
                   className={classes.textField}
                   placeholder="What's happening ?"
                 ></textarea>
@@ -112,7 +114,7 @@ const TweetBar = (props) => {
                       <Photo className={classes.icon} />
                     </IconButton>
                   </label>
-                  <IconButton onClick={() => setEmojiPicker(true)}>
+                  <IconButton onClick={() => setEmojiPicker(!emojiPickerState)}>
                     <Mood className={classes.icon} />
                   </IconButton>
                   <IconButton>

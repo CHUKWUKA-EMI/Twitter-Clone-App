@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Hidden from "@material-ui/core/Hidden";
-import { Divider } from "@material-ui/core";
+import { Divider, Link } from "@material-ui/core";
 import LabelBottomNavigation from "./BottomNav/BottomNav";
 import HomePage from "../HomePage/HomePage";
 import SideNavigation from "./SideNav/SideNav";
@@ -16,6 +16,10 @@ import ExplorePage from "../ExplorePage/Explore";
 import TopNavigation from "./TopNav/TopNavigation";
 import SearchDetails from "../ExplorePage/SearchDetails/Search";
 import SideDrawer from "../SideDrawer/SideDrawer";
+import MessagePage from "../Messages/Messages";
+import TweetIcon from "./tweetIcon/TweetIcon";
+import BookMarks from "../Bookmarks/BookMarks";
+import RightBar from "./RightBar/RightBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,10 +27,11 @@ const useStyles = makeStyles((theme) => ({
     overflowX: "hidden",
   },
   paper: {
-    height: "40rem",
+    height: "100",
     width: "relative",
-    position: "fixed",
-    marginRight: "7%",
+    position: "relative",
+    marginRight: "5%",
+    overflowY: "hidden",
   },
   paper1: {
     height: "100%",
@@ -36,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     borderRadius: "1rem",
 
-    backgroundColor: fade(theme.palette.common.black, 0.15),
+    backgroundColor: fade(theme.palette.common.black, 0.05),
     "&:hover": {
       backgroundColor: fade(theme.palette.common.black, 0.25),
     },
@@ -89,12 +94,41 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "1%",
     zIndex: 1,
   },
+  tweetIcon: {
+    marginLeft: "80%",
+  },
+  messagepage: {
+    [theme.breakpoints.down("sm")]: {
+      minWidth: "100%",
+      paddingBottom: "10rem",
+    },
+  },
+  trends: {
+    position: "relative",
+    marginTop: "15px",
+  },
+  footer: {
+    color: "rgb(101, 119, 134)",
+    fontSize: "13px",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    lineHeight: "calc(19.6875px)",
+    fontWeight: 400,
+    "& .MuiTypography-colorPrimary": {
+      color: "rgb(101, 119, 134)",
+    },
+  },
+  footerdiv: {
+    marginTop: "15px",
+  },
 }));
 
 const Layout = (props) => {
   const classes = useStyles();
   const wrapper = React.createRef();
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState("Home");
   const [state, setState] = React.useState(false);
 
   const handleChange = (event, newValue) => {
@@ -125,55 +159,126 @@ const Layout = (props) => {
                     onClickHome={() => setValue("Home")}
                     onClickNotify={() => setValue("Notifications")}
                     onClickProfile={() => setValue("Profile")}
+                    onClickMessage={() => setValue("Messages")}
+                    onClickBookmarks={() => setValue("Bookmarks")}
+                    onClickExplore={() => setValue("Search")}
                   />
                 </Paper>
               </Grid>
             </Hidden>
             <Divider />
-            <Grid className={classes.content} item md={5}>
-              <header className={classes.topnav}>
-                <TopNavigation onClick={openDrawer} text={value} />
-              </header>
-              <Route exact path="/layout" component={HomePage} />
-              <Route path="/layout/home" component={HomePage} />
-              <Route
-                path="/layout/notifications"
-                component={NotificationsPage}
-              />
-              <Route path="/layout/profile" component={ProfilePage} />
-              <Route path="/layout/explore" component={ExplorePage} />
-              <Route path="/layout/search" component={SearchDetails} />
-              <Hidden mdUp>
-                <LabelBottomNavigation
-                  value={value}
-                  handleChange={handleChange}
-                  homeVal="Home"
-                  searchVal="Search"
-                  notifyVal="Notifications"
-                  inboxVal="Messages"
-                />
-              </Hidden>
-            </Grid>
-            <Divider />
-            <Hidden smDown>
-              <Grid item md={3}>
-                <Paper className={classes.paper}>
-                  <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                      <SearchIcon />
-                    </div>
-                    <InputBase
-                      placeholder="Search Twitter"
-                      classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                      }}
-                      inputProps={{ "aria-label": "search" }}
-                    />
-                  </div>
-                </Paper>
+            {value === "Messages" && (
+              <Grid className={classes.messagepage} item xs={8}>
+                <Route path="/layout/messages" component={MessagePage} />
+                <Hidden mdUp>
+                  <LabelBottomNavigation
+                    value={value}
+                    handleChange={handleChange}
+                    homeVal="Home"
+                    searchVal="Search"
+                    notifyVal="Notifications"
+                    inboxVal="Messages"
+                  />
+                </Hidden>
               </Grid>
-            </Hidden>
+            )}
+
+            {(value === "Home" ||
+              value === "Search" ||
+              value === "Profile" ||
+              value === "Notifications" ||
+              value === "Bookmarks") && (
+              <>
+                <Grid className={classes.content} item md={5}>
+                  <header className={classes.topnav}>
+                    <TopNavigation onClick={openDrawer} text={value} />
+                  </header>
+
+                  <Route exact path="/layout" component={HomePage} />
+                  <Route path="/layout/home" component={HomePage} />
+                  <Route
+                    path="/layout/notifications"
+                    component={NotificationsPage}
+                  />
+                  <Route path="/layout/profile" component={ProfilePage} />
+                  <Route path="/layout/explore" component={ExplorePage} />
+                  <Route path="/layout/search" component={SearchDetails} />
+                  <Route path="/layout/bookmarks" component={BookMarks} />
+
+                  <Hidden mdUp>
+                    <LabelBottomNavigation
+                      value={value}
+                      handleChange={handleChange}
+                      homeVal="Home"
+                      searchVal="Search"
+                      notifyVal="Notifications"
+                      inboxVal="Messages"
+                    />
+                  </Hidden>
+                  <Hidden smUp>
+                    <div className={classes.tweetIcon}>
+                      <TweetIcon />
+                    </div>
+                  </Hidden>
+                </Grid>
+                <Divider />
+                <Hidden smDown>
+                  <Grid item xs={3}>
+                    <div className={classes.paper}>
+                      <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                          <SearchIcon />
+                        </div>
+                        <InputBase
+                          placeholder="Search Twitter"
+                          classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                          }}
+                          inputProps={{ "aria-label": "search" }}
+                        />
+                      </div>
+                      <div className={classes.trends}>
+                        <RightBar />
+                      </div>
+                      <div className={classes.footerdiv}>
+                        <footer className={classes.footer}>
+                          <Link
+                            target="_blank"
+                            rel="noopener"
+                            href="https://twitter.com/tos"
+                          >
+                            Terms
+                          </Link>
+                          <Link
+                            target="_blank"
+                            rel="noopener"
+                            href="https://twitter.com/privacy"
+                          >
+                            Privacy policy
+                          </Link>
+                          <Link
+                            target="_blank"
+                            rel="noopener"
+                            href="https://support.twitter.com/articles/20170514"
+                          >
+                            Cookies
+                          </Link>
+                          <Link
+                            target="_blank"
+                            rel="noopener"
+                            href="https://business.twitter.com/en/help/troubleshooting/how-twitter-ads-work.html"
+                          >
+                            Ads info
+                          </Link>
+                          &copy;{new Date().getUTCFullYear()}, Inc.
+                        </footer>
+                      </div>
+                    </div>
+                  </Grid>
+                </Hidden>
+              </>
+            )}
           </Grid>
         </Grid>
       </Grid>

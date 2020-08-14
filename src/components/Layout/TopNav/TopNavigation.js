@@ -6,11 +6,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import ToolBar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import SettingsIcon from "@material-ui/icons/Settings";
+import Avatar from "@material-ui/core/Avatar";
 import Hidden from "@material-ui/core/Hidden";
 import Popover from "@material-ui/core/Popover";
-import IOSSwitch from "../../Switch/IOSSwitch";
 
 const useStyle = makeStyles((theme) => ({
   grow: {
@@ -86,7 +84,34 @@ const useStyle = makeStyles((theme) => ({
 
     marginRight: "5%",
   },
+  svg: {
+    color: "rgba(29,161,242,1.00)",
+    height: "1.5em",
+    verticalAlign: "text-bottom",
+    display: "inline",
+    overflow: "hidden",
+    lineHeight: 1,
+    fontWeight: "bold",
+    fontSize: "15px",
+  },
+  path: {
+    fill: "rgba(29,161,242,1.00)",
+  },
 }));
+
+const StarIcon = () => {
+  const classes = useStyle();
+  return (
+    <svg viewBox="0 0 24 24" className={classes.svg}>
+      <g>
+        <path
+          className={classes.path}
+          d="M 22.772 10.506 l -5.618 -2.192 l -2.16 -6.5 c -0.102 -0.307 -0.39 -0.514 -0.712 -0.514 s -0.61 0.207 -0.712 0.513 l -2.16 6.5 l -5.62 2.192 c -0.287 0.112 -0.477 0.39 -0.477 0.7 s 0.19 0.585 0.478 0.698 l 5.62 2.192 l 2.16 6.5 c 0.102 0.306 0.39 0.513 0.712 0.513 s 0.61 -0.207 0.712 -0.513 l 2.16 -6.5 l 5.62 -2.192 c 0.287 -0.112 0.477 -0.39 0.477 -0.7 s -0.19 -0.585 -0.478 -0.697 Z m -6.49 2.32 c -0.208 0.08 -0.37 0.25 -0.44 0.46 l -1.56 4.695 l -1.56 -4.693 c -0.07 -0.21 -0.23 -0.38 -0.438 -0.462 l -4.155 -1.62 l 4.154 -1.622 c 0.208 -0.08 0.37 -0.25 0.44 -0.462 l 1.56 -4.693 l 1.56 4.694 c 0.07 0.212 0.23 0.382 0.438 0.463 l 4.155 1.62 l -4.155 1.622 Z M 6.663 3.812 h -1.88 V 2.05 c 0 -0.414 -0.337 -0.75 -0.75 -0.75 s -0.75 0.336 -0.75 0.75 v 1.762 H 1.5 c -0.414 0 -0.75 0.336 -0.75 0.75 s 0.336 0.75 0.75 0.75 h 1.782 v 1.762 c 0 0.414 0.336 0.75 0.75 0.75 s 0.75 -0.336 0.75 -0.75 V 5.312 h 1.88 c 0.415 0 0.75 -0.336 0.75 -0.75 s -0.335 -0.75 -0.75 -0.75 Z m 2.535 15.622 h -1.1 v -1.016 c 0 -0.414 -0.335 -0.75 -0.75 -0.75 s -0.75 0.336 -0.75 0.75 v 1.016 H 5.57 c -0.414 0 -0.75 0.336 -0.75 0.75 s 0.336 0.75 0.75 0.75 H 6.6 v 1.016 c 0 0.414 0.335 0.75 0.75 0.75 s 0.75 -0.336 0.75 -0.75 v -1.016 h 1.098 c 0.414 0 0.75 -0.336 0.75 -0.75 s -0.336 -0.75 -0.75 -0.75 Z"
+        ></path>
+      </g>
+    </svg>
+  );
+};
 
 const TopNavigation = (props) => {
   const classes = useStyle();
@@ -109,7 +134,7 @@ const TopNavigation = (props) => {
           <Hidden mdUp>
             <div>
               <IconButton onClick={props.onClick}>
-                <AccountCircle className={classes.accountcircle} />
+                <Avatar style={{ marginLeft: 0 }} />
               </IconButton>
             </div>
           </Hidden>
@@ -135,7 +160,7 @@ const TopNavigation = (props) => {
           )}
           <div className={classes.grow} />
           <IconButton onClick={handleClick}>
-            <SettingsIcon className={classes.setting} />
+            <StarIcon />
           </IconButton>
           <Popover
             className={classes.popover}
@@ -150,9 +175,7 @@ const TopNavigation = (props) => {
               vertical: "top",
               horizontal: "right",
             }}
-          >
-            <IOSSwitch />
-          </Popover>
+          ></Popover>
         </ToolBar>
       </AppBar>
     </div>

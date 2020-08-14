@@ -113,8 +113,8 @@ const Explore = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
+
   return (
     <Grid container className={classes.root}>
       <Paper className={classes.paper}>
