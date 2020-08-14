@@ -17,7 +17,6 @@ import Chat from "./chat";
 import NavBar from "../Layout/TopNav/TopNavigation";
 import SearchBox from "./SearchBox/Search";
 import InfoBar from "./InforBar/InfoBar";
-import MessageList from "./MessageList/MessageList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
