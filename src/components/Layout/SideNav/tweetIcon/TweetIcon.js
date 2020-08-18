@@ -23,6 +23,10 @@ const useStyles = makeStyles({
     marginTop: "23rem",
     width: "70px",
     height: "70px",
+    "&:hover": {
+      backgroundColor: "rgba(29,161,242,1.00)",
+      color: "rgb(255,255,255)",
+    },
   },
   path: {
     fill: "rgb(255, 255, 255)",
