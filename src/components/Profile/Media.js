@@ -1,7 +1,8 @@
 import React from "react";
 import { Grid, Typography, Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CreateTweet from "../HomePage/CreateTweet/CreateTweet";
+import CreateTweet from "./CreateTweet/CreateTweet";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -42,10 +43,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Media = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
+    history.push("/layout/profile/tweet");
   };
 
   const handleClose = () => {
@@ -56,9 +59,9 @@ const Media = () => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <CreateTweet
-          open={open}
+          open={open || window.location.pathname === "/layout/profile/tweet"}
           onClose={handleClose}
-          closeModal={handleClose}
+          closeModal={() => history.goBack()}
         />
         <Typography className={classes.heading} variant="h6">
           You haven't Tweeted any photos or videos yet

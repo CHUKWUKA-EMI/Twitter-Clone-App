@@ -38,28 +38,24 @@ export default function LabelBottomNavigation(props) {
       className={classes.root}
     >
       <BottomNavigationAction
-        label="Home"
         value={props.homeVal}
         icon={<HomeIcon className={classes.icons} />}
         component={NavLink}
         to="/layout/home"
       />
       <BottomNavigationAction
-        label="Search"
         value={props.searchVal}
         icon={<SearchIcon className={classes.icons} />}
         component={NavLink}
         to="/layout/explore"
       />
       <BottomNavigationAction
-        label="Notifications"
         value={props.notifyVal}
         icon={<NotificationIcon className={classes.icons} />}
         component={NavLink}
         to="/layout/notifications"
       />
       <BottomNavigationAction
-        label="Messages"
         value={props.inboxVal}
         icon={<InboxIcon className={classes.icons} />}
         component={NavLink}

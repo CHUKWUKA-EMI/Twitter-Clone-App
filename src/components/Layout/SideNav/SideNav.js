@@ -19,6 +19,7 @@ import {
 import TweetButton from "./tweetIcon/TweetIcon";
 import LogoutButton from "./LogoutButton/LogoutButton";
 import LogoutPopover from "./LogoutButton/LogoutModal";
+import MorePopover from "./More/More";
 import "./sidenav.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,12 +31,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10%",
     alignItems: "left",
     WebkitBoxPack: "justify",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "4%",
+      width: "fit-content",
+    },
   },
   twitter: {
     color: "rgba(29,161,242,1.00);",
     marginLeft: "1.2rem",
     height: "2.5rem",
     width: "2.5rem",
+  },
+  list: {
+    position: "fixed",
   },
   button: {
     margin: theme.spacing(1),
@@ -60,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem: {
     borderRadius: "2rem",
+    width: "fit-content",
     "&:hover, &:active, &.active": {
       backgroundColor: "rgb(206,233,234)",
       color: "rgba(29,161,242,1.00)",
@@ -141,15 +150,22 @@ const SideNavigation = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
+  const [openMore, setOpenMore] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
   };
-
+  const closeMore = () => {
+    setOpenMore(false);
+  };
   return (
     <div className={classes.root}>
       <Twitter className={classes.twitter} />
-      <List component="nav" aria-label="main navigation folders">
+      <List
+        className={classes.list}
+        component="nav"
+        aria-label="main navigation folders"
+      >
         <ListItem button className={classes.listItem}>
           <ListItemIcon onClick={() => history.push("/layout/home")}>
             <HomeIcon className={classes.icons} />
@@ -235,17 +251,16 @@ const SideNavigation = (props) => {
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
-          <ListItemIcon onClick={() => history.push("/layout/more")}>
+          <ListItemIcon onClick={() => setOpenMore(true)}>
             <MoreHoriz className={classes.icons} />
           </ListItemIcon>
-          <NavLink to="/layout/more" className={classes.link}>
-            <Hidden mdDown>
-              <ListItemText primary="More" />
-            </Hidden>
-          </NavLink>
+          <Hidden mdDown>
+            <ListItemText primary="More" />
+          </Hidden>
         </ListItem>
         <Hidden mdDown>
           <Button
+            onClick={() => history.push("/layout/profile/tweet")}
             size="large"
             variant="extended"
             color="primary"
@@ -262,6 +277,11 @@ const SideNavigation = (props) => {
             <TweetButton />
           </div>
         </Hidden>
+        <MorePopover
+          anchorPosition={{ left: 113, top: 293 }}
+          open={openMore}
+          onClose={closeMore}
+        />
         <div className={classes.popover}>
           <LogoutPopover
             anchorPosition={{ left: 113, top: 393 }}

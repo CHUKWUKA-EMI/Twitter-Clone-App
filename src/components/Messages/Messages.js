@@ -7,8 +7,8 @@ import {
   Typography,
   Hidden,
   IconButton,
-  List,
-  ListItem,
+  Box,
+  Card,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import NewMessage from "./NewMessage";
@@ -17,6 +17,8 @@ import Chat from "./chat";
 import NavBar from "../Layout/TopNav/TopNavigation";
 import SearchBox from "./SearchBox/Search";
 import InfoBar from "./InforBar/InfoBar";
+import ConversationInfo from "./conversation/Conversation";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "20px",
     backgroundColor: "rgba(29,161,242,1.00)",
     color: "white",
-    textTransform: "capitalize",
+    textTransform: "none",
     "&:hover": {
       backgroundColor: "rgb(29, 161, 242)",
       color: "white",
@@ -136,9 +138,19 @@ const useStyles = makeStyles((theme) => ({
   chatBody: {
     position: "fixed",
     display: "flex",
+    textAlign: "center",
+
     flexDirection: "column",
-    right: 0,
-    marginRight: "1rem",
+
+    right: 5,
+    marginRight: "2rem",
+    paddingTop: "5px",
+  },
+  chatCard: {
+    marginTop: "5px",
+    display: "flex",
+    flexWrap: "wrap",
+    textOverflow: "ellipsis",
   },
 }));
 
@@ -149,18 +161,14 @@ const Messages = (props) => {
   const [openChat, setOpenChat] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [chat, setChat] = React.useState([]);
+  const [info, setInfo] = React.useState(false);
 
-  const scrollToBottom = () => {
-    const chat = document.getElementById("chat");
-
-    chat.scrollTop = chat.scrollHeight;
-  };
   const handleChat = (e) => {
     setChat((chat) => {
       const newChat = [...chat, message];
       return newChat;
     });
-    scrollToBottom();
+
     setMessage("");
   };
 
@@ -188,19 +196,6 @@ const Messages = (props) => {
               <SearchBox />
             </header>
           </Hidden>
-
-          <NewMessage
-            openChat={() => {
-              setOpenChat(true);
-              setOpen(false);
-            }}
-            open={open}
-            onClick={() => {
-              setOpen(false);
-              history.goBack();
-            }}
-            onClose={() => setOpen(false)}
-          />
           <Divider />
           <main className={classes.main}>
             {!openChat && (
@@ -269,40 +264,49 @@ const Messages = (props) => {
 
           {openChat && (
             <>
-              <InfoBar />
+              <InfoBar
+                info={info}
+                closeInfo={() => setInfo(false)}
+                switchToInfo={() => setInfo(true)}
+              />
 
               <Divider />
-              <div>
-                {chat !== null && (
-                  <div className={classes.chatBody}>
-                    <List component="nav">
-                      {chat.map((msg, index) => {
-                        return (
-                          <ListItem key={index}>
-                            <Typography>{msg}</Typography>
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  </div>
-                )}
-                <Chat
-                  id="chat"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onClick={handleChat}
-                />
-                <Hidden smUp>
-                  <div>
-                    <IconButton
-                      onClick={() => setOpen(true)}
-                      className={classes.IconButton}
-                    >
-                      <MesssageIcon />
-                    </IconButton>
-                  </div>
-                </Hidden>
-              </div>
+
+              {info ? (
+                <ConversationInfo />
+              ) : (
+                <div>
+                  {chat !== null && (
+                    <ScrollToBottom>
+                      <Box className={classes.chatBody}>
+                        {chat.map((msg, index) => {
+                          return (
+                            <Card className={classes.chatCard} key={index}>
+                              <Typography>{msg}</Typography>
+                            </Card>
+                          );
+                        })}
+                      </Box>
+                    </ScrollToBottom>
+                  )}
+                  <Chat
+                    id="chat"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onClick={handleChat}
+                  />
+                  <Hidden smUp>
+                    <div>
+                      <IconButton
+                        onClick={() => setOpen(true)}
+                        className={classes.IconButton}
+                      >
+                        <MesssageIcon />
+                      </IconButton>
+                    </div>
+                  </Hidden>
+                </div>
+              )}
             </>
           )}
           <NewMessage
@@ -316,11 +320,23 @@ const Messages = (props) => {
               history.goBack();
             }}
             onClose={() => setOpen(false)}
+            friends={friends}
           />
         </section>
       </Grid>
     </Grid>
   );
 };
+
+const friends = [
+  { name: "Chukwuka Emi", username: "@emichukwuka" },
+  { name: "Rowland Ekemezie", username: "@rowlandekemezie" },
+  { name: "Justice Justice", username: "@justicejustice" },
+  { name: "Oliver Chiama", username: "@oliverchiama" },
+  { name: "Ekemezie Ugo", username: "@ekemezieugo" },
+  { name: "Ekene Emi", username: "@ekeneemi" },
+  { name: "Chukwuka Emi", username: "@chukwukaemi" },
+  { name: "Emi Emi", username: "@emiemi" },
+];
 
 export default Messages;

@@ -2,7 +2,6 @@ import React from "react";
 import { Route } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, fade } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Hidden from "@material-ui/core/Hidden";
@@ -12,11 +11,13 @@ import HomePage from "../HomePage/HomePage";
 import SideNavigation from "./SideNav/SideNav";
 import NotificationsPage from "../Notifications/index";
 import ProfilePage from "../Profile/ProfilePage";
+import CreateTweet from "../Profile/CreateTweet/CreateTweet";
 import ExplorePage from "../ExplorePage/Explore";
 import TopNavigation from "./TopNav/TopNavigation";
 import SearchDetails from "../ExplorePage/SearchDetails/Search";
 import SideDrawer from "../SideDrawer/SideDrawer";
 import MessagePage from "../Messages/Messages";
+import MessageModal from "../Messages/NewMessage";
 import TweetIcon from "./tweetIcon/TweetIcon";
 import BookMarks from "../Bookmarks/BookMarks";
 import RightBar from "./RightBar/RightBar";
@@ -33,9 +34,22 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "5%",
     overflowY: "hidden",
   },
+  sidenavGrid: {
+    [theme.breakpoints.down("md")]: {
+      width: "fit-content",
+    },
+  },
   paper1: {
     height: "100%",
     position: "fixed",
+    flexShrink: 1,
+    display: "flex",
+    flexDirection: "column",
+    [theme.breakpoints.down("sm")]: {
+      width: "fit-content",
+      position: "fixed",
+      marginLeft: "6%",
+    },
   },
   search: {
     position: "relative",
@@ -69,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     color: "Black",
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -138,6 +151,15 @@ const Layout = (props) => {
     setState(true);
   };
 
+  React.useEffect(() => {
+    if (
+      window.location.pathname === "/layout/messages" ||
+      window.location.pathname === "/layout/messages/compose"
+    ) {
+      setValue("Messages");
+    }
+  }, [value]);
+
   return (
     <div ref={wrapper} className={classes.root}>
       <Hidden mdUp>
@@ -153,8 +175,8 @@ const Layout = (props) => {
         <Grid item xs={12}>
           <Grid container spacing={1}>
             <Hidden smDown>
-              <Grid item md={4}>
-                <Paper className={classes.paper1}>
+              <Grid className={classes.sidenavGrid} item xs={4}>
+                <div className={classes.paper1}>
                   <SideNavigation
                     onClickHome={() => setValue("Home")}
                     onClickNotify={() => setValue("Notifications")}
@@ -163,13 +185,22 @@ const Layout = (props) => {
                     onClickBookmarks={() => setValue("Bookmarks")}
                     onClickExplore={() => setValue("Search")}
                   />
-                </Paper>
+                </div>
               </Grid>
             </Hidden>
             <Divider />
-            {value === "Messages" && (
+            {(value === "Messages" ||
+              ["/layout/messages", "/layout/messages/compose"].includes(
+                window.location.pathname
+              )) && (
               <Grid className={classes.messagepage} item xs={8}>
                 <Route path="/layout/messages" component={MessagePage} />
+                {window.location.pathname === "/layout/messages/compose" && (
+                  <Route
+                    path="/layout/messages/compose"
+                    component={MessageModal}
+                  />
+                )}
                 <Hidden mdUp>
                   <LabelBottomNavigation
                     value={value}
@@ -183,11 +214,22 @@ const Layout = (props) => {
               </Grid>
             )}
 
-            {(value === "Home" ||
-              value === "Search" ||
-              value === "Profile" ||
-              value === "Notifications" ||
-              value === "Bookmarks") && (
+            {([
+              "Home",
+              "Search",
+              "Profile",
+              "Notifications",
+              "Bookmarks",
+            ].includes(value) ||
+              [
+                "/layout/home",
+                "/layout/profile",
+                "layout/notifications",
+                "/layout/explore",
+                "/layout/explore",
+                "/layout/search",
+                "/layout/bookmarks",
+              ].includes(window.location.pathname)) && (
               <>
                 <Grid className={classes.content} item md={5}>
                   <header className={classes.topnav}>
@@ -201,6 +243,7 @@ const Layout = (props) => {
                     component={NotificationsPage}
                   />
                   <Route path="/layout/profile" component={ProfilePage} />
+                  <Route path="/layout/profile/tweet" component={CreateTweet} />
                   <Route path="/layout/explore" component={ExplorePage} />
                   <Route path="/layout/search" component={SearchDetails} />
                   <Route path="/layout/bookmarks" component={BookMarks} />

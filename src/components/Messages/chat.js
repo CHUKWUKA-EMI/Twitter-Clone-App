@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     position: "fixed",
+    justifyContent: "center",
     overflowX: "none",
     fontSize: "15px",
     color: "rgb(20, 23, 26)",
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: "rgba(29,161,242,1.00)",
     height: "2.5rem",
+    marginTop: "0.5rem",
     width: "2.5rem",
   },
   imageDiv: {
@@ -87,6 +89,7 @@ const Chat = (props) => {
           autoCorrect="true"
           value={props.value}
           onChange={props.onChange}
+          onKeyPress={props.onKeyPress}
           autoFocus
           fullWidth
           name="chat"

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     lineHeight: 1,
     fontSize: "15px",
-    fill: "rgb(255,255,255)",
+    fill: "rgba(29,161,242,1.00)",
   },
 }));
 

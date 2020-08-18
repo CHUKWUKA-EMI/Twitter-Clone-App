@@ -5,14 +5,14 @@ import {
   Backdrop,
   Grid,
   Container,
-  TextField,
   Divider,
   Paper,
   IconButton,
   Typography,
   Fab,
 } from "@material-ui/core";
-import { Close, Search } from "@material-ui/icons";
+import { Close } from "@material-ui/icons";
+import AutoComplete from "./AutoComplete/AutoComplete";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,20 +97,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10%",
     border: "none",
   },
-  textfield: {
-    border: "hidden",
-    marginLeft: "8%",
-
-    "& .MuiInput-underline:after": {
-      borderBottom: "none",
-    },
-    "& .MuiInput-underline:before": {
-      borderBottom: "none",
-      "&:hover": {
-        borderBottom: "none",
-      },
-    },
-  },
 }));
 
 const ModalContent = (props) => {
@@ -144,23 +130,7 @@ const ModalContent = (props) => {
         <Divider />
         <Grid item>
           <form className={classes.form}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <Search />
-              </div>
-              <div className={classes.textDiv}>
-                <TextField
-                  role="combobox"
-                  type="text"
-                  className={classes.textfield}
-                  fullWidth
-                  name="search"
-                  placeholder="Search people"
-                  autoFocus
-                />
-              </div>
-            </div>
-            <div></div>
+            <AutoComplete friends={props.friends} />
           </form>
         </Grid>
       </Paper>
@@ -183,7 +153,11 @@ const NewMessage = (props) => {
             timeout: 500,
           }}
         >
-          <ModalContent openChat={props.openChat} onClick={props.onClick} />
+          <ModalContent
+            openChat={props.openChat}
+            onClick={props.onClick}
+            friends={props.friends}
+          />
         </Modal>
       </Grid>
     </Container>

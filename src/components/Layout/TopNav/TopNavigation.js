@@ -8,7 +8,17 @@ import ToolBar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Hidden from "@material-ui/core/Hidden";
+import MessageIcon from "../../Messages/icons/MessageIcon";
 import Popover from "@material-ui/core/Popover";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Divider,
+} from "@material-ui/core";
+import { Settings as SettingsIcon } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
   grow: {
@@ -97,6 +107,11 @@ const useStyle = makeStyles((theme) => ({
   path: {
     fill: "rgba(29,161,242,1.00)",
   },
+  settingsDiv: {
+    textAlign: "center",
+    fontSize: "19px",
+    fontWeight: "bold",
+  },
 }));
 
 const StarIcon = () => {
@@ -116,6 +131,7 @@ const StarIcon = () => {
 const TopNavigation = (props) => {
   const classes = useStyle();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -159,9 +175,21 @@ const TopNavigation = (props) => {
             ""
           )}
           <div className={classes.grow} />
-          <IconButton onClick={handleClick}>
-            <StarIcon />
-          </IconButton>
+
+          {["/layout/messages", "/layout/messages/compose"].includes(
+            window.location.pathname
+          ) ? (
+            <IconButton
+              onClick={() => history.push("/layout/messages/compose")}
+            >
+              <MessageIcon />
+            </IconButton>
+          ) : (
+            <IconButton onClick={handleClick}>
+              <StarIcon />
+            </IconButton>
+          )}
+
           <Popover
             className={classes.popover}
             open={open}
@@ -175,7 +203,25 @@ const TopNavigation = (props) => {
               vertical: "top",
               horizontal: "right",
             }}
-          ></Popover>
+          >
+            <List>
+              <ListItem>
+                <div className={classes.settingsDiv}>
+                  <StarIcon />
+                  <Typography>
+                    <b>Home shows you top Tweets first</b>
+                  </Typography>
+                </div>
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="View content preferences" />
+              </ListItem>
+            </List>
+          </Popover>
         </ToolBar>
       </AppBar>
     </div>
