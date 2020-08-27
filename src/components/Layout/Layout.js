@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, useLocation, Switch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
@@ -11,16 +11,15 @@ import HomePage from "../HomePage/HomePage";
 import SideNavigation from "./SideNav/SideNav";
 import NotificationsPage from "../Notifications/index";
 import ProfilePage from "../Profile/ProfilePage";
-import CreateTweet from "../Profile/CreateTweet/CreateTweet";
 import ExplorePage from "../ExplorePage/Explore";
 import TopNavigation from "./TopNav/TopNavigation";
 import SearchDetails from "../ExplorePage/SearchDetails/Search";
 import SideDrawer from "../SideDrawer/SideDrawer";
 import MessagePage from "../Messages/Messages";
-import MessageModal from "../Messages/NewMessage";
 import TweetIcon from "./tweetIcon/TweetIcon";
 import BookMarks from "../Bookmarks/BookMarks";
 import RightBar from "./RightBar/RightBar";
+import CreateTweet from "./CreateTweet";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -138,11 +137,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Layout = (props) => {
+const Layout = () => {
   const classes = useStyles();
+  const location = useLocation();
   const wrapper = React.createRef();
   const [value, setValue] = React.useState("Home");
   const [state, setState] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -152,13 +161,10 @@ const Layout = (props) => {
   };
 
   React.useEffect(() => {
-    if (
-      window.location.pathname === "/layout/messages" ||
-      window.location.pathname === "/layout/messages/compose"
-    ) {
+    if (location.pathname === "/layout/messages") {
       setValue("Messages");
     }
-  }, [value]);
+  }, [location.pathname]);
 
   return (
     <div ref={wrapper} className={classes.root}>
@@ -178,6 +184,8 @@ const Layout = (props) => {
               <Grid className={classes.sidenavGrid} item xs={4}>
                 <div className={classes.paper1}>
                   <SideNavigation
+                    openTwtModal={handleOpen}
+                    openTweet={handleOpen}
                     onClickHome={() => setValue("Home")}
                     onClickNotify={() => setValue("Notifications")}
                     onClickProfile={() => setValue("Profile")}
@@ -189,18 +197,14 @@ const Layout = (props) => {
               </Grid>
             </Hidden>
             <Divider />
-            {(value === "Messages" ||
-              ["/layout/messages", "/layout/messages/compose"].includes(
-                window.location.pathname
-              )) && (
+            {value === "Messages" && (
               <Grid className={classes.messagepage} item xs={8}>
                 <Route path="/layout/messages" component={MessagePage} />
-                {window.location.pathname === "/layout/messages/compose" && (
-                  <Route
-                    path="/layout/messages/compose"
-                    component={MessageModal}
-                  />
-                )}
+                <Hidden smUp>
+                  <div className={classes.tweetIcon}>
+                    <TweetIcon />
+                  </div>
+                </Hidden>
                 <Hidden mdUp>
                   <LabelBottomNavigation
                     value={value}
@@ -214,40 +218,42 @@ const Layout = (props) => {
               </Grid>
             )}
 
-            {([
+            {[
               "Home",
               "Search",
               "Profile",
               "Notifications",
               "Bookmarks",
-            ].includes(value) ||
-              [
-                "/layout/home",
-                "/layout/profile",
-                "layout/notifications",
-                "/layout/explore",
-                "/layout/explore",
-                "/layout/search",
-                "/layout/bookmarks",
-              ].includes(window.location.pathname)) && (
+            ].includes(value) && (
               <>
                 <Grid className={classes.content} item md={5}>
                   <header className={classes.topnav}>
-                    <TopNavigation onClick={openDrawer} text={value} />
+                    <TopNavigation
+                      openMessage={() => setValue("Messages")}
+                      onClick={openDrawer}
+                      text={value}
+                    />
                   </header>
+                  <Switch>
+                    <Route exact path="/layout" component={HomePage} />
+                    <Route path="/layout/home" component={HomePage} />
+                    <Route
+                      path="/layout/notifications"
+                      component={NotificationsPage}
+                    />
+                    <Route path="/layout/profile">
+                      <ProfilePage openTweet={handleOpen} />
+                    </Route>
 
-                  <Route exact path="/layout" component={HomePage} />
-                  <Route path="/layout/home" component={HomePage} />
-                  <Route
-                    path="/layout/notifications"
-                    component={NotificationsPage}
+                    <Route path="/layout/explore" component={ExplorePage} />
+                    <Route path="/layout/search" component={SearchDetails} />
+                    <Route path="/layout/bookmarks" component={BookMarks} />
+                  </Switch>
+                  <CreateTweet
+                    open={open}
+                    onClose={handleClose}
+                    closeModal={() => setOpen(false)}
                   />
-                  <Route path="/layout/profile" component={ProfilePage} />
-                  <Route path="/layout/profile/tweet" component={CreateTweet} />
-                  <Route path="/layout/explore" component={ExplorePage} />
-                  <Route path="/layout/search" component={SearchDetails} />
-                  <Route path="/layout/bookmarks" component={BookMarks} />
-
                   <Hidden mdUp>
                     <LabelBottomNavigation
                       value={value}

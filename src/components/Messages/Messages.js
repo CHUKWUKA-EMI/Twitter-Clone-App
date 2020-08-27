@@ -10,7 +10,6 @@ import {
   Box,
   Card,
 } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import NewMessage from "./NewMessage";
 import MesssageIcon from "./icons/MessageIcon";
 import Chat from "./chat";
@@ -156,7 +155,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Messages = (props) => {
   const classes = useStyles();
-  const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const [openChat, setOpenChat] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -211,7 +209,6 @@ const Messages = (props) => {
                   <Fab
                     onClick={() => {
                       setOpen(true);
-                      history.push("/layout/messages/compose");
                     }}
                     size="medium"
                     variant="extended"
@@ -248,7 +245,6 @@ const Messages = (props) => {
                 <Fab
                   onClick={() => {
                     setOpen(true);
-                    history.push("/layout/messages/compose");
                   }}
                   size="medium"
                   variant="extended"
@@ -317,7 +313,6 @@ const Messages = (props) => {
             open={open}
             onClick={() => {
               setOpen(false);
-              history.goBack();
             }}
             onClose={() => setOpen(false)}
             friends={friends}

@@ -1,8 +1,6 @@
 import React from "react";
 import { Grid, Typography, Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CreateTweet from "./CreateTweet/CreateTweet";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -41,28 +39,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Media = () => {
+const Media = (props) => {
   const classes = useStyles();
-  const history = useHistory();
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-    history.push("/layout/profile/tweet");
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <CreateTweet
-          open={open || window.location.pathname === "/layout/profile/tweet"}
-          onClose={handleClose}
-          closeModal={() => history.goBack()}
-        />
         <Typography className={classes.heading} variant="h6">
           You haven't Tweeted any photos or videos yet
         </Typography>
@@ -72,7 +54,7 @@ const Media = () => {
         </Typography>
         <div className={classes.btnContainer}>
           <Fab
-            onClick={handleOpen}
+            onClick={props.onClick}
             size="large"
             variant="extended"
             className={classes.button}

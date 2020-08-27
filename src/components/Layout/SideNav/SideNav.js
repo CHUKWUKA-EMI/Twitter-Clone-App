@@ -16,7 +16,7 @@ import {
   MoreHoriz,
   Twitter,
 } from "@material-ui/icons";
-import TweetButton from "./tweetIcon/TweetIcon";
+import TweetButton from "./TweetButton";
 import LogoutButton from "./LogoutButton/LogoutButton";
 import LogoutPopover from "./LogoutButton/LogoutModal";
 import MorePopover from "./More/More";
@@ -260,7 +260,7 @@ const SideNavigation = (props) => {
         </ListItem>
         <Hidden mdDown>
           <Button
-            onClick={() => history.push("/layout/profile/tweet")}
+            onClick={props.openTwtModal}
             size="large"
             variant="extended"
             color="primary"
@@ -273,7 +273,7 @@ const SideNavigation = (props) => {
           </Button>
         </Hidden>
         <Hidden lgUp>
-          <div className={classes.tweetButton}>
+          <div onClick={props.openTweet} className={classes.tweetButton}>
             <TweetButton />
           </div>
         </Hidden>

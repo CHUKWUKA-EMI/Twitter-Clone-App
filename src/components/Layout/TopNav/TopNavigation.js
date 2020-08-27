@@ -18,7 +18,6 @@ import {
   Divider,
 } from "@material-ui/core";
 import { Settings as SettingsIcon } from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
   grow: {
@@ -56,7 +55,6 @@ const useStyle = makeStyles((theme) => ({
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     color: "Black",
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -131,7 +129,6 @@ const StarIcon = () => {
 const TopNavigation = (props) => {
   const classes = useStyle();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const history = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -179,9 +176,7 @@ const TopNavigation = (props) => {
           {["/layout/messages", "/layout/messages/compose"].includes(
             window.location.pathname
           ) ? (
-            <IconButton
-              onClick={() => history.push("/layout/messages/compose")}
-            >
+            <IconButton onClick={props.openMessage}>
               <MessageIcon />
             </IconButton>
           ) : (
