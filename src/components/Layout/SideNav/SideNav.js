@@ -16,6 +16,10 @@ import {
   MoreHoriz,
   Twitter,
 } from "@material-ui/icons";
+import TweetButton from "./TweetButton";
+import LogoutButton from "./LogoutButton/LogoutButton";
+import LogoutPopover from "./LogoutButton/LogoutModal";
+import MorePopover from "./More/More";
 import "./sidenav.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,12 +31,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10%",
     alignItems: "left",
     WebkitBoxPack: "justify",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "4%",
+      width: "fit-content",
+    },
   },
   twitter: {
     color: "rgba(29,161,242,1.00);",
     marginLeft: "1.2rem",
     height: "2.5rem",
     width: "2.5rem",
+  },
+  list: {
+    position: "fixed",
   },
   button: {
     margin: theme.spacing(1),
@@ -57,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem: {
     borderRadius: "2rem",
+    width: "fit-content",
     "&:hover, &:active, &.active": {
       backgroundColor: "rgb(206,233,234)",
       color: "rgba(29,161,242,1.00)",
@@ -110,6 +122,16 @@ const useStyles = makeStyles((theme) => ({
     height: "1.75rem",
     position: "relative",
   },
+  tweetButton: {
+    marginLeft: "0rem",
+  },
+  logout: {
+    marginTop: "8rem",
+  },
+  popover: {
+    positon: "absolute",
+    marginBottom: "4rem",
+  },
 }));
 
 const HashTag = () => {
@@ -127,11 +149,23 @@ const HashTag = () => {
 const SideNavigation = (props) => {
   const classes = useStyles();
   const history = useHistory();
+  const [open, setOpen] = React.useState(false);
+  const [openMore, setOpenMore] = React.useState(false);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const closeMore = () => {
+    setOpenMore(false);
+  };
   return (
     <div className={classes.root}>
       <Twitter className={classes.twitter} />
-      <List component="nav" aria-label="main navigation folders">
+      <List
+        className={classes.list}
+        component="nav"
+        aria-label="main navigation folders"
+      >
         <ListItem button className={classes.listItem}>
           <ListItemIcon onClick={() => history.push("/layout/home")}>
             <HomeIcon className={classes.icons} />
@@ -150,7 +184,11 @@ const SideNavigation = (props) => {
           <ListItemIcon onClick={() => history.push("/layout/explore")}>
             <HashTag className={classes.icons} />
           </ListItemIcon>
-          <NavLink to="/layout/explore" className={classes.link}>
+          <NavLink
+            onClick={props.onClickExplore}
+            to="/layout/explore"
+            className={classes.link}
+          >
             <Hidden mdDown>
               <ListItemText primary="Expore" />
             </Hidden>
@@ -174,7 +212,11 @@ const SideNavigation = (props) => {
           <ListItemIcon onClick={() => history.push("/layout/messages")}>
             <InboxIcon className={classes.icons} />
           </ListItemIcon>
-          <NavLink to="/layout/messages" className={classes.link}>
+          <NavLink
+            onClick={props.onClickMessage}
+            to="/layout/messages"
+            className={classes.link}
+          >
             <Hidden mdDown>
               <ListItemText primary="Messages" />
             </Hidden>
@@ -184,7 +226,11 @@ const SideNavigation = (props) => {
           <ListItemIcon onClick={() => history.push("/layout/bookmarks")}>
             <Bookmark className={classes.icons} />
           </ListItemIcon>
-          <NavLink to="/layout/bookmarks" className={classes.link}>
+          <NavLink
+            onClick={props.onClickBookmarks}
+            to="/layout/bookmarks"
+            className={classes.link}
+          >
             <Hidden mdDown>
               <ListItemText primary="Bookmarks" />
             </Hidden>
@@ -205,27 +251,47 @@ const SideNavigation = (props) => {
           </NavLink>
         </ListItem>
         <ListItem button className={classes.listItem}>
-          <ListItemIcon onClick={() => history.push("/layout/more")}>
+          <ListItemIcon onClick={() => setOpenMore(true)}>
             <MoreHoriz className={classes.icons} />
           </ListItemIcon>
-          <NavLink to="/layout/more" className={classes.link}>
-            <Hidden mdDown>
-              <ListItemText primary="More" />
-            </Hidden>
-          </NavLink>
+          <Hidden mdDown>
+            <ListItemText primary="More" />
+          </Hidden>
         </ListItem>
-
-        <Button
-          size="large"
-          variant="extended"
-          color="primary"
-          className={classes.button}
-          aria-label="add"
-        >
-          <div className={classes.btnDiv}>
-            <span>Tweet</span>
+        <Hidden mdDown>
+          <Button
+            onClick={props.openTwtModal}
+            size="large"
+            variant="extended"
+            color="primary"
+            className={classes.button}
+            aria-label="add"
+          >
+            <div className={classes.btnDiv}>
+              <span>Tweet</span>
+            </div>
+          </Button>
+        </Hidden>
+        <Hidden lgUp>
+          <div onClick={props.openTweet} className={classes.tweetButton}>
+            <TweetButton />
           </div>
-        </Button>
+        </Hidden>
+        <MorePopover
+          anchorPosition={{ left: 113, top: 293 }}
+          open={openMore}
+          onClose={closeMore}
+        />
+        <div className={classes.popover}>
+          <LogoutPopover
+            anchorPosition={{ left: 113, top: 393 }}
+            open={open}
+            onClose={handleClose}
+          />
+        </div>
+        <div onClick={() => setOpen(true)} className={classes.logout}>
+          <LogoutButton />
+        </div>
       </List>
     </div>
   );

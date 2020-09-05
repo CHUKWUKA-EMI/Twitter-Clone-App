@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const [value, setValue] = React.useState(0);
@@ -287,7 +287,7 @@ const ProfilePage = () => {
           <Grid item xs={12}>
             {tab === "Tweets" && <TweetCard />}
             {tab === "Tweets & replies" && <TweetCard />}
-            {tab === "Media" && <Media />}
+            {tab === "Media" && <Media onClick={props.openTweet} />}
             {tab === "Likes" && (
               <Typography style={{ textAlign: "center" }} variant="subtitle1">
                 Likes

@@ -21,6 +21,9 @@ const useStyles = makeStyles({
     marginBottom: "1rem",
     font: "inherit",
     fontWeight: "bold",
+    "& .MuiDrawer-paperAnchorLeft": {
+      width: "60%",
+    },
   },
   list: {
     width: 250,
@@ -29,7 +32,7 @@ const useStyles = makeStyles({
     width: "auto",
   },
   link: {
-    fontWeight: "600px",
+    fontWeight: "500px",
     textDecoration: "none",
     textDecorationColor: "none",
     color: "grey",
@@ -64,6 +67,9 @@ const useStyles = makeStyles({
   info: {
     marginLeft: "1.5rem",
   },
+  emptyspan: {
+    width: "2rem",
+  },
 });
 
 export default function SideDrawer(props) {
@@ -92,14 +98,20 @@ export default function SideDrawer(props) {
           <ListItemIcon>
             <BookmarksIcon />
           </ListItemIcon>
-          <ListItemText primary="Bookmarks" />
+          <ListItemText
+            onClick={() => history.push("/layout/bookmarks")}
+            primary="Bookmarks"
+          />
         </ListItem>
         <Divider />
         <ListItem button>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary="Settings and privacy" />
+          <ListItemText
+            onClick={() => history.push("/layout/home")}
+            primary="Settings"
+          />
         </ListItem>
       </List>
     </div>
@@ -132,8 +144,13 @@ export default function SideDrawer(props) {
             </div>
             <div>
               <span className={classes.links}>
-                <Link className={classes.link}>Following</Link>{" "}
-                <Link className={classes.link}>Followers</Link>
+                <Link to="/layout" className={classes.link}>
+                  Following
+                </Link>{" "}
+                <span className={classes.emptyspan}></span>
+                <Link to="/layout" className={classes.link}>
+                  Followers
+                </Link>
               </span>
             </div>
             {list()}

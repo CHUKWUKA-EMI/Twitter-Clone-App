@@ -1,8 +1,6 @@
 import React from "react";
 import { Grid, Typography, Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CreateTweet from "../HomePage/CreateTweet/CreateTweet";
-import "roboto-fontface";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -41,26 +39,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Media = () => {
+const Media = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <CreateTweet
-          open={open}
-          onClose={handleClose}
-          closeModal={handleClose}
-        />
         <Typography className={classes.heading} variant="h6">
           You haven't Tweeted any photos or videos yet
         </Typography>
@@ -70,7 +54,7 @@ const Media = () => {
         </Typography>
         <div className={classes.btnContainer}>
           <Fab
-            onClick={handleOpen}
+            onClick={props.onClick}
             size="large"
             variant="extended"
             className={classes.button}

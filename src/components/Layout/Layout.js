@@ -1,12 +1,11 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, useLocation, Switch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, fade } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Hidden from "@material-ui/core/Hidden";
-import { Divider } from "@material-ui/core";
+import { Divider, Link } from "@material-ui/core";
 import LabelBottomNavigation from "./BottomNav/BottomNav";
 import HomePage from "../HomePage/HomePage";
 import SideNavigation from "./SideNav/SideNav";
@@ -16,6 +15,11 @@ import ExplorePage from "../ExplorePage/Explore";
 import TopNavigation from "./TopNav/TopNavigation";
 import SearchDetails from "../ExplorePage/SearchDetails/Search";
 import SideDrawer from "../SideDrawer/SideDrawer";
+import MessagePage from "../Messages/Messages";
+import TweetIcon from "./tweetIcon/TweetIcon";
+import BookMarks from "../Bookmarks/BookMarks";
+import RightBar from "./RightBar/RightBar";
+import CreateTweet from "./CreateTweet";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,20 +27,34 @@ const useStyles = makeStyles((theme) => ({
     overflowX: "hidden",
   },
   paper: {
-    height: "40rem",
+    height: "100",
     width: "relative",
-    position: "fixed",
-    marginRight: "7%",
+    position: "relative",
+    marginRight: "5%",
+    overflowY: "hidden",
+  },
+  sidenavGrid: {
+    [theme.breakpoints.down("md")]: {
+      width: "fit-content",
+    },
   },
   paper1: {
     height: "100%",
     position: "fixed",
+    flexShrink: 1,
+    display: "flex",
+    flexDirection: "column",
+    [theme.breakpoints.down("sm")]: {
+      width: "fit-content",
+      position: "fixed",
+      marginLeft: "6%",
+    },
   },
   search: {
     position: "relative",
     borderRadius: "1rem",
 
-    backgroundColor: fade(theme.palette.common.black, 0.15),
+    backgroundColor: fade(theme.palette.common.black, 0.05),
     "&:hover": {
       backgroundColor: fade(theme.palette.common.black, 0.25),
     },
@@ -64,7 +82,6 @@ const useStyles = makeStyles((theme) => ({
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     color: "Black",
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -89,13 +106,52 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "1%",
     zIndex: 1,
   },
+  tweetIcon: {
+    marginLeft: "80%",
+  },
+  messagepage: {
+    [theme.breakpoints.down("sm")]: {
+      minWidth: "100%",
+      paddingBottom: "10rem",
+    },
+  },
+  trends: {
+    position: "relative",
+    marginTop: "15px",
+  },
+  footer: {
+    color: "rgb(101, 119, 134)",
+    fontSize: "13px",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    lineHeight: "calc(19.6875px)",
+    fontWeight: 400,
+    "& .MuiTypography-colorPrimary": {
+      color: "rgb(101, 119, 134)",
+    },
+  },
+  footerdiv: {
+    marginTop: "15px",
+  },
 }));
 
-const Layout = (props) => {
+const Layout = () => {
   const classes = useStyles();
+  const location = useLocation();
   const wrapper = React.createRef();
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState("Home");
   const [state, setState] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -103,6 +159,12 @@ const Layout = (props) => {
   const openDrawer = () => {
     setState(true);
   };
+
+  React.useEffect(() => {
+    if (location.pathname === "/layout/messages") {
+      setValue("Messages");
+    }
+  }, [location.pathname]);
 
   return (
     <div ref={wrapper} className={classes.root}>
@@ -119,61 +181,153 @@ const Layout = (props) => {
         <Grid item xs={12}>
           <Grid container spacing={1}>
             <Hidden smDown>
-              <Grid item md={4}>
-                <Paper className={classes.paper1}>
+              <Grid className={classes.sidenavGrid} item xs={4}>
+                <div className={classes.paper1}>
                   <SideNavigation
+                    openTwtModal={handleOpen}
+                    openTweet={handleOpen}
                     onClickHome={() => setValue("Home")}
                     onClickNotify={() => setValue("Notifications")}
                     onClickProfile={() => setValue("Profile")}
+                    onClickMessage={() => setValue("Messages")}
+                    onClickBookmarks={() => setValue("Bookmarks")}
+                    onClickExplore={() => setValue("Search")}
                   />
-                </Paper>
+                </div>
               </Grid>
             </Hidden>
             <Divider />
-            <Grid className={classes.content} item md={5}>
-              <header className={classes.topnav}>
-                <TopNavigation onClick={openDrawer} text={value} />
-              </header>
-              <Route exact path="/layout" component={HomePage} />
-              <Route path="/layout/home" component={HomePage} />
-              <Route
-                path="/layout/notifications"
-                component={NotificationsPage}
-              />
-              <Route path="/layout/profile" component={ProfilePage} />
-              <Route path="/layout/explore" component={ExplorePage} />
-              <Route path="/layout/search" component={SearchDetails} />
-              <Hidden mdUp>
-                <LabelBottomNavigation
-                  value={value}
-                  handleChange={handleChange}
-                  homeVal="Home"
-                  searchVal="Search"
-                  notifyVal="Notifications"
-                  inboxVal="Messages"
-                />
-              </Hidden>
-            </Grid>
-            <Divider />
-            <Hidden smDown>
-              <Grid item md={3}>
-                <Paper className={classes.paper}>
-                  <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                      <SearchIcon />
-                    </div>
-                    <InputBase
-                      placeholder="Search Twitter"
-                      classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                      }}
-                      inputProps={{ "aria-label": "search" }}
-                    />
+            {value === "Messages" && (
+              <Grid className={classes.messagepage} item xs={8}>
+                <Route path="/layout/messages" component={MessagePage} />
+                <Hidden smUp>
+                  <div className={classes.tweetIcon}>
+                    <TweetIcon />
                   </div>
-                </Paper>
+                </Hidden>
+                <Hidden mdUp>
+                  <LabelBottomNavigation
+                    value={value}
+                    handleChange={handleChange}
+                    homeVal="Home"
+                    searchVal="Search"
+                    notifyVal="Notifications"
+                    inboxVal="Messages"
+                  />
+                </Hidden>
               </Grid>
-            </Hidden>
+            )}
+
+            {[
+              "Home",
+              "Search",
+              "Profile",
+              "Notifications",
+              "Bookmarks",
+            ].includes(value) && (
+              <>
+                <Grid className={classes.content} item md={5}>
+                  <header className={classes.topnav}>
+                    <TopNavigation
+                      openMessage={() => setValue("Messages")}
+                      onClick={openDrawer}
+                      text={value}
+                    />
+                  </header>
+                  <Switch>
+                    <Route exact path="/layout" component={HomePage} />
+                    <Route path="/layout/home" component={HomePage} />
+                    <Route
+                      path="/layout/notifications"
+                      component={NotificationsPage}
+                    />
+                    <Route path="/layout/profile">
+                      <ProfilePage openTweet={handleOpen} />
+                    </Route>
+
+                    <Route path="/layout/explore" component={ExplorePage} />
+                    <Route path="/layout/search" component={SearchDetails} />
+                    <Route path="/layout/bookmarks" component={BookMarks} />
+                  </Switch>
+                  <CreateTweet
+                    open={open}
+                    onClose={handleClose}
+                    closeModal={() => setOpen(false)}
+                  />
+                  <Hidden mdUp>
+                    <LabelBottomNavigation
+                      value={value}
+                      handleChange={handleChange}
+                      homeVal="Home"
+                      searchVal="Search"
+                      notifyVal="Notifications"
+                      inboxVal="Messages"
+                    />
+                  </Hidden>
+                  <Hidden smUp>
+                    <div className={classes.tweetIcon}>
+                      <TweetIcon />
+                    </div>
+                  </Hidden>
+                </Grid>
+                <Divider />
+                <Hidden smDown>
+                  <Grid item xs={3}>
+                    <div className={classes.paper}>
+                      <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                          <SearchIcon />
+                        </div>
+                        <InputBase
+                          placeholder="Search Twitter"
+                          classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                          }}
+                          inputProps={{ "aria-label": "search" }}
+                        />
+                      </div>
+                      <div className={classes.trends}>
+                        <RightBar />
+                      </div>
+                      <div className={classes.footerdiv}>
+                        <footer className={classes.footer}>
+                          <Link
+                            target="_blank"
+                            rel="noopener"
+                            href="https://twitter.com/tos"
+                          >
+                            Terms
+                          </Link>
+                          <Link
+                            target="_blank"
+                            rel="noopener"
+                            href="https://twitter.com/privacy"
+                          >
+                            Privacy policy
+                          </Link>
+                          <Link
+                            target="_blank"
+                            rel="noopener"
+                            href="https://support.twitter.com/articles/20170514"
+                          >
+                            Cookies
+                          </Link>
+                          <Link
+                            target="_blank"
+                            rel="noopener"
+                            href="https://business.twitter.com/en/help/troubleshooting/how-twitter-ads-work.html"
+                          >
+                            Ads info
+                          </Link>
+                          &copy;{new Date().getUTCFullYear()}, Inc.
+                        </footer>
+                      </div>
+                    </div>
+                  </Grid>
+                </Hidden>
+              </>
+            )}
           </Grid>
         </Grid>
       </Grid>

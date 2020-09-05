@@ -113,8 +113,8 @@ const Explore = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
+
   return (
     <Grid container className={classes.root}>
       <Paper className={classes.paper}>
@@ -138,14 +138,14 @@ const Explore = () => {
                 <Grid item className={classes.container}>
                   {" "}
                   <div
-                    onDoubleClick={() => history.push("/layout/search")}
+                    onClick={() => history.push("/layout/search")}
                     className={classes.trendBody}
                   >
                     <div className={classes.trendHeader}>
                       Gaming. Trending
                       <IconButton
                         className={classes.expand}
-                        onClick={handleExpandClick}
+                        onTouchEnd={handleExpandClick}
                       >
                         <ExpandMore />{" "}
                       </IconButton>
